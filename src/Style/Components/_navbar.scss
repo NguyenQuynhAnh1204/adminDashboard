@@ -1,0 +1,63 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+
+.navbar {
+    height: 50px;
+    border-bottom: $bd-05;
+    @include align-ct;
+    font-size: 14px;
+    color: #555;
+
+    .wrapper {
+        padding: 20px;
+        width: 100%;
+        @include align-ct;
+        justify-content: space-between;
+
+        .search {
+            @include align-ct;
+            border: $bd-05;
+            padding: 3px 6px;
+            input {
+                border: none;
+                outline: none;
+                background: transparent;
+
+                &::placeholder {
+                    font-size: 12px
+                }
+            }
+        }
+
+        .items {
+            @include align-ct;
+            .item {
+                @include align-ct;
+                margin-right: 20px;
+                cursor: pointer;
+                position: relative;
+                .icon {
+                    font-size: 20px;
+                }
+
+                .avatar {
+                    @include circle(30px);
+                }
+
+                .counter {
+                    @include circle(15px);
+                    font-size: 10px;
+                    background-color: red;
+                    @include center;
+                    color: white;
+                    font-weight: bold;
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
+                }
+            }
+
+        }
+    }
+}

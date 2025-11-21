@@ -1,0 +1,48 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.widget {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    
+
+
+    .widget-left, .widget-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .widget-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: $cl-txt-title;
+        }
+
+        .widget-counter {
+            font-size: 28px;
+            font-weight: 300;
+        }
+
+        .widget-link {
+            width: max-content;
+            font-size: 12px;
+            border-bottom: 1px solid gray;
+        }
+
+        .percentage {
+            @include align-ct;
+            font-size: 14px;
+        }
+
+        .widget-icon {
+            font-size: 30px;
+            padding: 5px;
+            border-radius: 5px;
+            align-self: flex-end;
+        }
+    }
+}

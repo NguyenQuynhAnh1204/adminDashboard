@@ -1,0 +1,87 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.sidebar {
+    
+    flex: 1;
+    border-right: $bd-05;
+    min-height: 100vh;
+    .sidebar-top {
+        height: 50px;
+        @include center;
+        
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: $cl-main;
+        }
+    }
+
+    hr {
+        height: 0;
+        border: $bd-05;
+    }
+
+    .sidebar-center {
+        padding-left: 20px;
+    }
+
+    ul {
+        li {
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+            &:hover {
+                background-color: $cl-main-hv;
+            }
+            .icon {
+                font-size: 18px;
+                color: $cl-main;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 600px;
+                color: #888;
+                margin-left: 10px;
+            }
+        }
+        .sidebar-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: $cl-txt-title;
+            margin: 15px 0 5px;
+            text-transform: uppercase;
+        }
+
+        .active {
+            li {
+                background-color: $cl-main-hv;
+            }
+        }
+    }
+
+
+    .sidebar-bottom {
+        display: flex;
+        align-items: center;
+        margin: 10px;
+        gap: 10px;
+        
+        .color-option {
+            margin: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            border: 1px solid #a19bb7;
+            &:nth-child(1) {
+                background-color: whitesmoke;
+            }
+            &:nth-child(2) {
+                background-color: #333;
+            }
+        }
+    }
+}

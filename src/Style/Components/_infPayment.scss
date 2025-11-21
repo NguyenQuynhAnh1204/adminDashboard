@@ -1,0 +1,59 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+
+.inf-payment {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: $bd-05;
+    border-radius: 5px;
+    overflow: hidden;
+    .inf-top {
+        p {
+            padding: 12px;
+            background-color:antiquewhite;
+            text-align: center;
+            background-color: #e2f4ff;
+            border-bottom: 2px solid $cl-btn-pos-shy;
+            font-weight: bold;
+        }
+        
+        .pay-method {
+            @include align-ct;
+            position: relative;
+            padding: 10px;
+            gap: 6px;
+            font-size: 12px;
+            
+            .trash-icon {
+                font-size: 20px;
+            }
+            .money {
+                font-size: 16px;
+                position: absolute;
+                right: 0;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .inf-bottom {
+        padding: 4px 12px;
+        font-size: 14px;
+        border-top: $bd-05;
+        .inf-text {
+            margin-top: 4px;
+            display: flex;
+            justify-content: space-between;
+            
+            &:nth-child(1) {
+                
+                font-weight: bold;
+            }
+
+        }
+    }
+    
+}

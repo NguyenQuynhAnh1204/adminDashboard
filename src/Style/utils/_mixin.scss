@@ -1,0 +1,21 @@
+
+
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@mixin align-ct {
+    display: flex;
+    align-items: center;
+}
+
+
+@mixin circle($length) {
+    width: $length;
+    height: $length;
+    border-radius: 99px;
+}
+

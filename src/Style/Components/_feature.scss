@@ -1,0 +1,70 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.feature {
+    flex: 2;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    .feature-top {
+        flex: 1;
+        @include align-ct;
+        justify-content: space-between;
+        color: $cl-txt-title;
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+
+    .feature-bottom {
+        flex: 20;
+        @include center;
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: space-between;
+        .feature-chart {
+            width: 100px;
+            height: 100px;
+        }
+
+        .feature-chart_title {
+            font-weight: 500;
+            color: $cl-txt-title;
+        }
+
+        .feature-chart_amount {
+            font-size: 30px;
+        }
+
+        .feature-chart_desc {
+            font-weight: 300;
+            font-size: 12px;
+            color: $cl-txt-grey;
+            text-align: center;
+        }
+
+        .feature-summary {
+            margin: 10px 0;
+            width: 100%;
+            @include align-ct;
+            justify-content: space-between;
+
+            .item {
+                text-align: center;
+                .item-title {
+                    color: $cl-txt-title;
+                    font-size: 14px;
+                }
+                .item-result {
+                    @include align-ct;
+                    margin-top: 10px;
+                    font-size: 14px;
+                }
+            }
+        }
+    } 
+}

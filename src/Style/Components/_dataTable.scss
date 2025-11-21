@@ -1,0 +1,54 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.data-table {
+    padding: 20px;
+
+    .cell-table-img {
+        @include align-ct;
+        .cell-img {
+            @include circle(32px);
+            object-fit: cover;
+            margin-right: 20px;
+            object-position: center;
+        }
+    }
+
+    .cell-table-action {
+        @include align-ct;
+        height: 100%;
+        gap: 20px;
+        .view-btn {
+            padding: 3px 6px;
+            border-radius: 5px;
+            color: $cl-btn-vw;
+            border: 1px dotted $cl-btn-vw;
+            cursor: pointer;
+            background: none;
+            &:hover {
+                background-color: #143181;
+                color: #fff;
+            }
+            &:active {
+                color: $cl-btn-vw;
+            } 
+        }
+        .delete-btn {
+            padding: 3px 6px;
+            border-radius: 5px;
+            color: $cl-btn-dlt;
+            border: 1px dotted $cl-btn-dlt;
+            cursor: pointer;
+            background: none;
+            &:hover {
+                background-color: #930a11;
+                color: #fff;
+            }
+            &:active {
+                color: $cl-btn-dlt;
+            }
+        }
+    }
+
+}
+

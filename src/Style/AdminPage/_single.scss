@@ -1,0 +1,75 @@
+
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.single-page {
+    display: flex;
+    .single-container {
+        flex: $flex-container;
+    }
+
+    .single-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        color: lightgrey;
+    }
+
+    .single-top {
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+        
+        .single-left {
+            padding: 20px;
+            flex: 1;
+            position: relative;
+    
+            .edit-btn {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                font-size: 13px;
+                background-color: #7551f818;
+                color: $cl-main;
+                border-radius: 5px;
+                padding: 3px 10px;
+            }
+
+            .single-item {
+                display: flex;
+                gap: 20px;
+
+                .single-img {
+                    @include circle(100px);
+                    object-fit: cover;
+                }
+                .single-detail {
+                    .item-title {
+                        margin-bottom: 10px;
+                        color: $cl-txt-title;
+                        font-weight: bold;
+                    }
+                    .item-detail {
+                        margin-bottom: 10px;
+                        font-size: 14px;
+                        .item-key {
+                            font-weight: bold;
+                            color: $cl-txt-grey;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .single-right {
+            flex: 2;
+        }
+    }
+
+    .single-bottom {
+        padding: 20px;
+        margin: 10px 20px;
+    }
+}

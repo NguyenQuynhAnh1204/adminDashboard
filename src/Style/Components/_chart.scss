@@ -1,0 +1,14 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.chart {
+    flex: 4;
+    padding: 10px;
+    color: $cl-txt-title;
+    border-radius: 5px;
+    min-height: 300px;
+    .chart-title {
+        margin-bottom: 20px;
+
+    }
+}   

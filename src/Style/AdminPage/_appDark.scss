@@ -1,0 +1,21 @@
+
+
+.app-dark {
+    color: #e0dfdf;
+    
+    .navbar {
+        color: #ccc;
+    }
+
+    .shadow {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    .sidebar {
+        ul {
+            li:hover {
+                background-color: #686868;
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.list-page {
+    display: flex;
+    width: 100%;
+    .list-container {
+        flex: $flex-container;
+        .list-top {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 20px 0;
+            width: 100%;
+            .list-title {
+                font-size: 18px;
+                color: $cl-txt-title;
+            }
+            button {
+                background: none;
+                border: 1px solid $cl-success;
+                padding: 3px 10px;
+                font-size: 16px;
+                color: $cl-success;
+                border-radius: 5px;
+                cursor: pointer;
+                &:hover {
+                    background-color: $cl-success;
+                    color: white;
+                }
+            }
+        }
+        
+    }
+}

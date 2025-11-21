@@ -1,0 +1,17 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+
+.table {
+    .cell-wrapper {
+        @include align-ct;
+
+        img {
+            border: 1px solid red;
+            @include circle(32px);
+            margin-right: 10px;
+            object-fit: cover;
+        }
+    }
+
+}

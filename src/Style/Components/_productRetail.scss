@@ -1,0 +1,63 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+
+
+.product-item {
+    @include align-ct;
+    margin: 20px 0;
+    padding: 0 20px 10px;
+    border-bottom: $bd-05;
+    gap: 20px;
+    .item-left {
+        flex: 6;
+        line-height: 1.5;
+        .item-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: $cl-btn-pos;
+        } 
+        .item-detail {
+            font-size: 12px;
+            color: $cl-txt-grey;
+            span {
+                padding-left: 6px;
+                border-left: 1px solid #999;
+            }
+        }
+        
+    }
+
+    .item-center {
+        flex: 4;
+        @include align-ct;
+        gap: 10px;
+        span {
+            width: 50px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+        .item-btn {
+            font-size: 18px;
+            background: none;
+            border: none;
+        }
+    }
+
+    .item-right {
+        flex: 1;
+        font-size: 14px;
+        font-weight: bold;
+        color: $cl-btn-pos;
+    }
+
+    .item-close {
+        flex: 0.5;
+        font-size: 18px;
+        color: $cl-txt-grey;
+
+        &:hover {
+            color: #000;
+        }
+    }
+}

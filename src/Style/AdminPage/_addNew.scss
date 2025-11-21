@@ -1,0 +1,78 @@
+
+
+@use '../utils' as *;
+@use '../abstract' as *;
+
+
+
+.new-page {
+    display: flex;
+
+    .new-container {
+        flex: $flex-container;
+
+        .new-title {
+            color: lightgrey;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .new-top {
+            padding: 10px;
+            margin: 20px;
+            
+        }
+        
+        .new-bottom {
+            padding: 10px;
+            margin: 20px;
+            display: flex;
+
+            .new-left {
+                flex: 1;
+                @include center;
+                .new-img {
+                    @include circle(150px);
+                    object-fit: cover;
+                }
+            }
+
+            .new-right {
+                flex: 3;
+
+                .new-form {
+                    display: flex;
+                    justify-content: space-around;
+                    flex-wrap: wrap;
+                    gap: 20px;
+                    .form-input {
+                        width: 40%;
+
+                        label {
+                            @include align-ct;
+                            gap: 10px;
+                        }
+                        
+                        input {
+                            width: 90%;
+                            padding: 5px;
+                            margin-top: 10px;
+                            border: none;
+                            border-bottom: 1px solid gray;
+                        }
+                    }
+
+                    button {
+                        width: 150px;
+                        padding: 10px;
+                        margin-top: 10px;
+                        border: none;
+                        background-color: teal;
+                        color: white;
+                        font-weight: bold;
+
+                    }
+                }
+            }
+        }
+    }
+}

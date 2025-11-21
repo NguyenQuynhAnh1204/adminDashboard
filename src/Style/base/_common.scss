@@ -1,0 +1,39 @@
+@use '../abstract' as *;
+
+.cursor {
+    cursor: pointer;
+}
+
+.shadow {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.positive {
+    color: $cl-success;
+}
+
+.negative {
+    color: $cl-errol;
+}
+
+
+.cell-status {
+    padding: 6px;
+    border-radius: 5px;
+
+    &.pending {
+        color: $cl-pending;
+        background-color: rgb(247, 241, 225);
+    }
+
+    &.approved, &.active {
+        color: $cl-active;
+        background-color: rgb(217, 249, 213);
+    }
+
+    &.passive {
+        color: $cl-passive;
+        background-color: rgb(241, 199, 218);
+    }
+}
+
