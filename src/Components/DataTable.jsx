@@ -30,7 +30,7 @@ const DataTable = ({columns, rows}) => {
                                 outline: 'none', // ❌ Xoá viền khi focus
                             },
                             '& .MuiDataGrid-row:hover': {
-                                backgroundColor: '#5c5c5cff',
+                                backgroundColor: '#cfcdcdff',
                             }
                         }}
                     />

@@ -1,0 +1,19 @@
+
+@use '../utils' as *;
+@use '../abstract' as *;
+
+
+.update_user-page {
+    display: flex;
+    .update-container {
+        flex: $flex-container;
+        
+        .title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: lightgrey;
+        }
+    }
+
+}

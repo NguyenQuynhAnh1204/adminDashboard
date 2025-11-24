@@ -12,6 +12,7 @@ import AdminLayout from "./Pages/Admin/AdminLayout";
 import CustomThemeProvider from "./Context/CustomThemeProvider";
 import ProductList from "./Pages/Admin/ProductList";
 import UserList from "./Pages/Admin/UserList";
+import UpdateProfile from "./Pages/Admin/UpadateProfile";
 
 
 
@@ -36,6 +37,7 @@ function App() {
               <Route path="users">
                 <Route index element={<UserList/>} />
                 <Route path=":userId" element={<Single />} />
+                <Route path=":userId/edit" element={<UpdateProfile/>}/>
                 <Route path="new" element={<AddNew />} />
               </Route>
 

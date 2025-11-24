@@ -1,6 +1,7 @@
 import ListPage from "../../Components/List";
 import axios from "../../API/api";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const productColumns = [
@@ -15,7 +16,7 @@ const productColumns = [
             )
         }
     },
-    { field: 'unit', headerName: 'Unit', width: 100 },
+    // { field: 'unit', headerName: 'Unit', width: 100 },
     { field: 'price', headerName: 'Price', width: 150 },
     { field: 'variant', headerName: 'Variant', width: 150 },
     { field: 'expiry_date', headerName: 'Expiry date', width: 150},
@@ -44,12 +45,14 @@ const ProductList = () => {
         renderCell: (params) => (
         <div className='cell-table-action'>
              <button className='view-btn' onClick={() => handleView(params.row)}>View</button>
-            <button className='delete-btn' onClick={() => handleDelete(params.row)}>Delete</button>
+            <button className='delete-btn' onClick={() => handleUpdate(params.row)}>Update</button>
         </div>
         ),
     }
     ]
 
+
+    const nav = useNavigate();
     const [products, setProducts] = useState([]);
     
     const fetchData = async () => {
@@ -62,10 +65,11 @@ const ProductList = () => {
     }, [])
 
     const handleView = (row) => {
-        
+        if (!row.id) return;
+        nav(`${row.id}`);
     }
 
-    const handleDelete = (row) => {
+    const handleUpdate = (row) => {
         
     }
     

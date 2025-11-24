@@ -20,7 +20,7 @@ const Calculator = React.memo(({money, setMoney}) => {
     return (
         <div className="calculator">
             <div className="calc-money">
-                <p >{money}</p>
+                <p >{formatVND(Number(money))}</p>
                 <BackspaceIcon className='dlt-btn cursor' onClick={() => setMoney(prev => prev.slice(0, -1))}/>
             </div>
         

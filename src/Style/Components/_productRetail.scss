@@ -9,6 +9,11 @@
     padding: 0 20px 10px;
     border-bottom: $bd-05;
     gap: 20px;
+
+    .product-img {
+        @include circle(32px);
+    }
+
     .item-left {
         flex: 6;
         line-height: 1.5;
