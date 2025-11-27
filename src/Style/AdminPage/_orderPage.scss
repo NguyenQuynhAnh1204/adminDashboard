@@ -1,0 +1,18 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+
+.order-page {
+    display: flex;
+
+    .order-container {
+        flex: $flex-container;
+
+        .order-title {
+            padding: 20px;
+            color: $cl-txt-title;
+            font-size: 20px;
+            font-weight: 500;
+        }
+    }
+}

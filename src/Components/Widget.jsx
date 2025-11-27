@@ -3,19 +3,27 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import { useNavigate } from 'react-router-dom';
+import axios from "../API/api"
+import { useEffect, useState } from 'react';
 
 const Widget = ({type}) => {
+
+    const nav = useNavigate();
+
+    const [count, setCount] = useState(0);
+
     let data;
 
-    let amount = 100;
-    let diff = 20;
+    // diff (tăng trưởng) = (hiện tại - trước) / trước x 100 
 
     switch (type) {
-        case "user":
+        case "product":
             data = {
-                title: "User",
+                title: "Product",
                 isMoney: false,
-                link: "See all users",
+                link: "See all products",
+                diff: 0,
                 icon: <PersonOutlineOutlinedIcon className='widget-icon'
                 style={{
                     color: "crimson",
@@ -29,6 +37,7 @@ const Widget = ({type}) => {
                 title: "Order",
                 isMoney: false,
                 link: "View all orders",
+                diff: 0,
                 icon: <ShoppingCartOutlinedIcon className='widget-icon'
                 style={{
                     color: "goldenrod",
@@ -42,6 +51,7 @@ const Widget = ({type}) => {
                 title: "Earning",
                 isMoney: true,
                 link: "View net earnings",
+                diff: 0,
                 icon: <MonetizationOnOutlinedIcon className='widget-icon'
                 style={{
                     color: "green",
@@ -68,18 +78,35 @@ const Widget = ({type}) => {
         
     }
 
+
+    const fetchData = async () => {
+        const res = await axios(`/${type}/count`);
+        setCount(res.data.count);
+    }
+
+    useEffect(() => {
+        if (type === 'product') {
+            fetchData();
+            return;
+        }
+    }, [])
+
+    const handleLink = () => {
+        nav(`/admin/${type}s`)
+    }
+
     return (
         <div className="widget shadow">
             <div className="widget-left">
                 <span className="widget-title">{data.title}</span>
-                <span className="widget-counter">{data.isMoney && "$"} {amount}</span>
-                <span className="widget-link cursor">{data.link}</span>
+                <span className="widget-counter">{data.isMoney && "$"} {count}</span>
+                <span className="widget-link cursor" onClick={handleLink}>{data.link}</span>
             </div>
 
             <div className="widget-right">
                 <div className="percentage positive">
                     <KeyboardArrowUpIcon/>
-                    {diff} %
+                    {data.diff} %
                 </div>
 
                 {data.icon}

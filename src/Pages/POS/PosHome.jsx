@@ -47,6 +47,7 @@ const PosHome = () => {
         try {
             const res = await axios.post('/order', {
                 order: {
+                    
                     productItem: data,
                     total: total,
                     money: Number(money),

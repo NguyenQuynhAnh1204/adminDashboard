@@ -2,7 +2,7 @@ import Navbar from "../../Components/Navbar"
 import Sidebar from "../../Components/Sidebar"
 import Chart from "../../Components/Chart"
 import TableList from "../../Components/Table"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "../../API/api";
 
@@ -20,20 +20,65 @@ const Single = () => {
         avatar: "",
     });
 
+    const [file, setFile] = useState("");
+    const [change, setChange] = useState(false);
+
     const fetchData = async () => {
-        const res = await axios.get(`/user/${userId}`);
-        setForm({
-            name: res.data.user.name,
-            phone: res.data.user.phone,
-            age: res.data.user.age,
-            address: res.data.user.address,
-            avatar: res.data.user.avatar,
-        });
+        try {
+            const res = await axios.get(`/user/${userId}`);
+            setForm({
+                name: res.data.user.name,
+                phone: res.data.user.phone,
+                age: res.data.user.age,
+                address: res.data.user.address,
+                avatar: res.data.user.avatar,
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+
+    const fetchUpdate = async () => {
+        try {
+
+            const formData = new FormData();
+
+            if(file) {
+                formData.append("avatar", file);
+            }
+
+            Object.keys(form).forEach(key => {
+                if(key !== 'avatar') {
+                    formData.append(key, form[key]);
+                }
+            })
+
+            const res = await axios.post(`/user/update?q=${userId}`, formData) 
+
+            console.log(res.data);
+
+            // console.log(formData);
+
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     useEffect(() => {
         fetchData();
     }, [])
+
+    useEffect(() => {
+        return () => {
+            if (file) {
+            URL.revokeObjectURL(file);
+            }
+            setChange(true);
+        };
+    }, [file]);
 
     const handleSelect = (select) => {
         setBtnSelect(select);
@@ -45,11 +90,17 @@ const Single = () => {
             ...form,
             [e.target.name]: e.target.value
         })
+        setChange(true);
     }
 
-    const handleUpdate = () => {
-        console.log('update');
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        if (!change) return;
+        console.log(change)
+        fetchUpdate();
+        setChange(false);
     }
+    
     return (
         <div className="single-page">
             <Sidebar/>
@@ -62,16 +113,15 @@ const Single = () => {
                        <h1 className="single-title">Change Avatar</h1>
                         
                         <div className="single-avt">
-                            <img src={form.avatar || '/noImg.jpg'} 
+                            <img src={file ? URL.createObjectURL(file) : form.avatar || '/noImg.jpg'} 
                                 alt="no-img" className="new-img"/>
                         </div>
                         
-                        <button className="single-btn-img cursor" onClick={() => {}}>
-                            New Photo
-                            <input type="file" id="file" style={{display: "none"}}
-                                onChange={(e) => setFile(e.target.files[0])}
-                            />
-                        </button>
+                     
+                        <label htmlFor="file" className="single-btn-img cursor">New Photo</label>
+                        <input type="file" id="file" style={{display: "none"}}
+                            onChange={(e) => setFile(e.target.files[0])}
+                        />
                         
                     </div>
 

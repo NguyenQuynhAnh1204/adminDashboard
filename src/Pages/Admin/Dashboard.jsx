@@ -15,8 +15,9 @@ const Dashboard = () => {
             <div className="dashboard-container">
                 <Navbar />
                 <div className="dashboard-widgets">
-                    <Widget type="user"/>
+                    {/* <Widget type="user" /> */}
                     <Widget type="order"/>
+                    <Widget type="product"/>
                     <Widget type="earning"/>
                     <Widget type="balance"/>
                 </div>

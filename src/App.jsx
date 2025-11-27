@@ -13,6 +13,7 @@ import CustomThemeProvider from "./Context/CustomThemeProvider";
 import ProductList from "./Pages/Admin/ProductList";
 import UserList from "./Pages/Admin/UserList";
 import UpdateProfile from "./Pages/Admin/UpadateProfile";
+import OrderList from "./Pages/Admin/Order";
 
 
 
@@ -45,6 +46,11 @@ function App() {
                 <Route index element={<ProductList/>} />
                 <Route path=":productId" element={<Single />} />
                 <Route path="new" element={<AddNew />} />
+              </Route>
+
+              <Route path="orders">
+                <Route index element={<OrderList/>}/>
+                <Route path=":orderId" element/>
               </Route>
             </Route>
         
