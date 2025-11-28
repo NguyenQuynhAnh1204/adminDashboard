@@ -15,7 +15,8 @@ const Single = () => {
     const [form, setForm] = useState({
         name: "",
         phone: "",
-        age: "",
+        email: "",
+        birthday: "",
         address: "",
         avatar: "",
     });
@@ -29,10 +30,12 @@ const Single = () => {
             setForm({
                 name: res.data.user.name,
                 phone: res.data.user.phone,
-                age: res.data.user.age,
+                email: res.data.user.email,
+                birthday: res.data.user.birthday && res.data.user.birthday.split("T")[0],
                 address: res.data.user.address,
                 avatar: res.data.user.avatar,
             });
+            console.log(res.data.user.birthday)
         }
         catch (e) {
             console.log(e);
@@ -59,7 +62,7 @@ const Single = () => {
 
             console.log(res.data);
 
-            // console.log(formData);
+           
 
         }
         catch (e) {
@@ -96,7 +99,7 @@ const Single = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
         if (!change) return;
-        console.log(change)
+        console.log(form)
         fetchUpdate();
         setChange(false);
     }
@@ -131,19 +134,23 @@ const Single = () => {
                         <form action="" className="single-form">
                             <div className="form-input">
                                 <label htmlFor="">User name:</label>
-                                <input type="text" name="name" value={form.name} onChange={handleChange}/>
+                                <input type="text" name="name"  value={form.name || ''} onChange={handleChange}/>
                             </div>
                             <div className="form-input">
                                 <label htmlFor="">Phone number</label>
-                                <input type="text" name="phone" value={form.phone} onChange={handleChange}/>
+                                <input type="text" name="phone" value={form.phone || ''} onChange={handleChange}/>
                             </div>
                             <div className="form-input">
-                                <label htmlFor="">Age:</label>
-                                <input type="text" name="age" value={form.age} onChange={handleChange}/>
+                                <label htmlFor="">Email:</label>
+                                <input type="text" name="email" value={form.email || ''} onChange={handleChange}/>
+                            </div>
+                            <div className="form-input">
+                                <label htmlFor="">Birthday:</label>
+                                <input type="date" name="birthday" value={form.birthday || ''} onChange={handleChange}/>
                             </div>
                             <div className="form-input">
                                 <label htmlFor="">Address:</label>
-                                <input type="text" name="address" value={form.address} onChange={handleChange}/>
+                                <input type="text" name="address" value={form.address || ''} onChange={handleChange}/>
                             </div>
 
                             <div className="form-btn">

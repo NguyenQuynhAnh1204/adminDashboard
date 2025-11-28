@@ -12,6 +12,7 @@ export default defineConfig({
     alias: {
       "@emotion/react": path.resolve(__dirname, "node_modules/@emotion/react"),
       "@emotion/styled": path.resolve(__dirname, "node_modules/@emotion/styled"),
+      'schedule-x': '/path/to/schedule-x/index.js'
     },
   },
 })

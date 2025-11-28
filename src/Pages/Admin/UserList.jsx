@@ -2,6 +2,7 @@ import ListPage from "../../Components/List";
 import axios from "../../API/api";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { render } from "@fullcalendar/core/preact.js";
 
 const userColumns = [
     { field: 'id', headerName: 'ID', width: 50 },
@@ -16,9 +17,23 @@ const userColumns = [
         }
     },
     { field: 'phone', headerName: 'Phone number', width: 150 },
-    { field: 'age', headerName: 'Age', width: 100 },
+    { field: 'age', headerName: 'Age', width: 100, 
+        renderCell: (params) => {
+            const today = new Date();
+
+            const birthday = params.row.birthday;
+            if (!birthday) return '';
+            let age =  today.getFullYear() - new Date(birthday).getFullYear();
+            return age;
+        }
+     },
     { field: 'address', headerName: 'Address', width: 150 },
-    { field: 'hireDate', headerName: 'Hire date', width: 160},
+    { field: 'hireDate', headerName: 'Hire date', width: 160, 
+        renderCell: (params) => {
+            const date = new Date(params.value); 
+            return date.toLocaleDateString();
+        }
+    },
     { field: 'status', headerName: 'Status', width: 150,
         renderCell: (params) => {
             return (

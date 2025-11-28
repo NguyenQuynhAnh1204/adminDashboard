@@ -81,20 +81,20 @@
                 }
 
                 .form-btn {
-                   @include center;
-                   position: absolute;
-                   bottom: 10px;
+                    width: 40%;
+                    margin: 10px 0;
                     button {
+                        margin-top: 20px;
+                        padding: 10px;
+                        width: 100%;
+                        font-size: 16px;
                         cursor: pointer;
-                        width: 300px;
                         background: none;
                         border: none;
                         background-color: $cl-main;
-                        padding: 10px;
                         color: #fff;
-                        font-size: 16px;
                         font-weight: bold;
-                        margin: 20px;
+                        
                     }
                 }
             }
