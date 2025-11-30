@@ -9,6 +9,7 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
 import { NavLink } from 'react-router-dom';
 import useCustomTheme from '../CustomHook/useCustomTheme';
 
@@ -52,6 +53,12 @@ const Sidebar = () => {
                         <li>
                             <CreditCardIcon className='icon'/>
                             <span>Orders</span>
+                        </li>
+                    </NavLink>
+                    <NavLink to={'/admin/import'}>
+                        <li>
+                            <BrowserUpdatedIcon className='icon'/>
+                            <span>Import</span>
                         </li>
                     </NavLink>
 

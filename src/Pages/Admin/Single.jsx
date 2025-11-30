@@ -5,6 +5,9 @@ import TableList from "../../Components/Table"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "../../API/api";
+import MyModal from "../../Components/Modal"
+import Schedule from "../../Components/ScheduleWork"
+
 
 const Single = () => {
 
@@ -23,6 +26,7 @@ const Single = () => {
 
     const [file, setFile] = useState("");
     const [change, setChange] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -35,7 +39,7 @@ const Single = () => {
                 address: res.data.user.address,
                 avatar: res.data.user.avatar,
             });
-            console.log(res.data.user.birthday)
+            
         }
         catch (e) {
             console.log(e);
@@ -99,8 +103,8 @@ const Single = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
         if (!change) return;
-        console.log(form)
         fetchUpdate();
+        setIsUpdate(true);
         setChange(false);
     }
     
@@ -166,10 +170,21 @@ const Single = () => {
                 </div>
 
                 <div className="single-bottom shadow">
-                    <h1 className="single-title">Last Transaction</h1>
-                    <TableList/>
+                    {btnSelect === 'transaction' && (
+                        <>
+                            <h1 className="single-title">Last Transaction</h1>
+                            <TableList/>
+                        </>
+                    )}
+                    {btnSelect === 'schedule' && <Schedule/>}
                 </div>
             </div>
+
+            {
+                isUpdate && (
+                    <MyModal onClose={() => setIsUpdate(false)} message={"Cập nhật thành công!!!"} open={isUpdate} type={"success"}/>
+                )
+            }
         </div>
     )
 }

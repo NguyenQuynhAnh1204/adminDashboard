@@ -14,6 +14,7 @@ import ProductList from "./Pages/Admin/ProductList";
 import UserList from "./Pages/Admin/UserList";
 import UpdateProfile from "./Pages/Admin/UpadateProfile";
 import OrderList from "./Pages/Admin/Order";
+import ProductItem from "./Pages/Admin/ProductItem";
 
 
 
@@ -44,8 +45,8 @@ function App() {
 
               <Route path="products">
                 <Route index element={<ProductList/>} />
-                <Route path=":productId" element={<Single />} />
-                <Route path="new" element={<AddNew />} />
+                <Route path=":productId" element={<ProductItem type={"info"}/>} />
+                <Route path="new" element={<ProductItem type={'new'}/>} />
               </Route>
 
               <Route path="orders">
