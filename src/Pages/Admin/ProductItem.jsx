@@ -1,15 +1,19 @@
 import Navbar from "../../Components/Navbar"
 import Sidebar from "../../Components/Sidebar"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "../../API/api";
 import MyModal from "../../Components/Modal"
 import ImportForm from "../../Components/ImportProduct"
 
 
+
+
+
 const ProductItem = ({type}) => {
 
     const {productId} = useParams();
+    const [errors, setErrors] = useState({});
 
     const [product, setProduct] = useState({
         name: "",
@@ -25,13 +29,16 @@ const ProductItem = ({type}) => {
 
     const [stockProduct, setStockProduct] = useState({
         quantity: 0,
-        stock: 1,
+        stock: 0,
         status: ""
     });
 
     const [file, setFile] = useState("");
-    // const [change, setChange] = useState(false);
-    // const [isUpdate, setIsUpdate] = useState(false);
+    const [change, setChange] = useState(false);
+    const [isStock, setIsStock] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [modal, setModal] = useState(false);
+    const [mess, setMess] = useState("");
 
     const fetchProduct = async () => {
         try {
@@ -61,7 +68,8 @@ const ProductItem = ({type}) => {
             setStockProduct({
                 quantity: res.data.stock.quantity,
                 cost: res.data.stock.cost,
-                status: res.data.stock.quantity>0 ? 1 : 0 
+                stock: res.data.stock.stock,
+                status: res.data.stock.quantity > res.data.stock.stock ? 1 : 0
             })
         }   
         catch (e) {
@@ -69,38 +77,42 @@ const ProductItem = ({type}) => {
         }
     }
 
-    // const fetchUpdate = async () => {
-    //     try {
+    const fetchUpdateInf = async () => {
+        try {
 
-    //         const formData = new FormData();
+            const formData = new FormData();
 
-    //         if(file) {
-    //             formData.append("avatar", file);
-    //         }
+            if(file) {
+                formData.append("path", file);
+            }
 
-    //         Object.keys(form).forEach(key => {
-    //             if(key !== 'avatar') {
-    //                 formData.append(key, form[key]);
-    //             }
-    //         })
+            Object.keys(product).forEach(key => {
+                if(key !== 'path') {
+                    formData.append(key, product[key]);
+                }
+            })
+            if(type == "info") {
+                const res = await axios.post(`/product/updateInf/${productId}`, formData) ;
+                setIsUpdate(res.data.success);
+            }
+            else if(type == "new") {
+                const res =  await axios.post("/product/add", formData);
+                setIsUpdate(res.data.success);
+            }
+            setMess("Cập nhật thành công")
+        }
+        catch (e) {
+            setIsUpdate(e.response.data.success);
+            if (type === "new") {
+                setMess("Sản phẩm đã tồn tại");
+            } else if (type === 'info') {
+                setMess("Cập nhật thất bại");
+            }
+        }
+    }
 
-    //         const res = await axios.post(`/user/update?q=${userId}`, formData) 
-
-    //         console.log(res.data);
-
-           
-
-    //     }
-    //     catch (e) {
-    //         console.log(e);
-    //     }
-    // }
 
     useEffect(() => {
-        if(type === 'new') {
-            console.log('tạo mới');
-            return;
-        }
         if (type === "info") {
             fetchProduct();
             fetchStock();
@@ -113,25 +125,81 @@ const ProductItem = ({type}) => {
             if (file) {
                 URL.revokeObjectURL(file);
             }
-            // setChange(true);
+            setChange(true);
         };
     }, [file]);
 
-    const handleChange = (e) => {
+    const validateForm = () => {
+        let newErrors = {};
+
+        if(!product.name.trim()) {
+            newErrors.name = "Tên không được để trống";
+        }
+        if(!product.barcode.trim()) {
+            newErrors.barcode = "Mã sản phẩm không được để trống";
+        }
+        if(!product.cateName.trim()) {
+            newErrors.cateName = "Danh mục trống";
+        }
+        if(!product.brandName.trim()) {
+            newErrors.brandName = "Thương hiệu trống";
+        }
+        if(!product.unit.trim()) {
+            newErrors.unit = "Đơn vị trống";
+        }
+        if(!product.variant.trim()) {
+            newErrors.variant = "Biến thể trống";
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    }
+
+    const handleChangeInf = (e) => {
         setProduct({
             ...product,
             [e.target.name]: e.target.value
         })
-        // setChange(true);
+        setErrors({
+            ...errors,
+            [e.target.name]: ""
+        })
+        setChange(true);
     }
 
-    // const handleUpdate = (e) => {
-    //     e.preventDefault();
-    //     if (!change) return;
-    //     fetchUpdate();
-    //     setIsUpdate(true);
-    //     setChange(false);
-    // }
+    const handleChangeStock = (e) => {
+        setStockProduct({
+            ...stockProduct,
+            [e.target.name]: e.target.value
+        })
+        setIsStock(true);
+    }
+
+    const handleUpdateInf = async (e) => {
+        e.preventDefault();
+        if (!change) return;
+        try {
+            if (type === 'new') { 
+                const isValid = validateForm();
+                if (!isValid) {
+                    return;
+                } 
+            }
+            await fetchUpdateInf();                  
+            setModal(true);             
+            setChange(false);
+        } catch (err) {
+            console.error("Update failed:", err);
+        }
+    };
+
+
+    const handleUpdateStock = (e) => {
+        e.preventDefault();
+        if (!isStock) return;
+        fetchUpdateStock();
+        setIsUpdate(true);
+        setIsStock(false);
+    }
     
     return (
         <div className="pro-item-page">
@@ -172,19 +240,21 @@ const ProductItem = ({type}) => {
                                             name="name"
                                             placeholder="Tên sản phẩm"
                                             value={product.name}
-                                            onChange={handleChange}
+                                            onChange={handleChangeInf}
                                         />
+                                        {errors.name && <p className="error-text">{errors.name}</p>}
                                     </div>
                                     <div className="form-item">
-                                        <label htmlFor="code">Product code</label>
+                                        <label htmlFor="barcode">Product code</label>
                                         <input
                                             type="text"
-                                            id="code"
-                                            name="code"
+                                            id="barcode"
+                                            name="barcode"
                                             placeholder="Mã sản phẩm"
                                             value={product.barcode}
-                                            onChange={handleChange}
-                                        />
+                                            onChange={handleChangeInf}
+                                            />
+                                        {errors.barcode && <p className="error-text">{errors.barcode}</p>}
                                     </div>
                                 </div>
 
@@ -200,8 +270,8 @@ const ProductItem = ({type}) => {
                                             id="price"
                                             name="price"
                                             step={1000}
-                                            value={Number(product.price)}
-                                            onChange={handleChange}
+                                            value={Number(product.price) || ''}
+                                            onChange={handleChangeInf}
                                         />
                                     </div>
 
@@ -211,61 +281,69 @@ const ProductItem = ({type}) => {
                                             type="number"
                                             id="importPrice"
                                             name="importPrice"
-                                            step={1000}
-                                            value={stockProduct.cost}       
-                                            onChange={handleChange}
+                                            value={stockProduct.cost ?? 0}       
+                                            disabled
                                         />
                                     </div>
                                 </div>
 
                                 <div className="form-group">
                                     <div className="form-item">
-                                        <label htmlFor="cate">Category</label>
-                                        <select id="cate" name="cate" onChange={handleChange}>
-                                            <option value={product.cateName}>{product.cateName}</option>
-                                        </select>
+                                        <label htmlFor="cateName">Category</label>
+                                        <input type="text" name="cateName" id="cateName" 
+                                            value={product.cateName ?? ""} 
+                                            disabled={type !== "new"}
+                                            onChange={handleChangeInf}
+                                        />
+                                        {errors.cateName && <p className="error-text">{errors.cateName}</p>}
                                     </div>
 
                                     <div className="form-item">
-                                        <label htmlFor="brand" onChange={handleChange}>Brand</label>
-                                        <select id="brand" name="brand">
-                                            <option value={product.brandName}>{product.brandName}</option>
-                                            
-                                        </select>
+                                        <label htmlFor="brandName">Brand</label>
+                                        <input type="text" name="brandName" id="brandName" 
+                                            value={product.brandName ?? ""} 
+                                            disabled={type !== "new"}
+                                            onChange={handleChangeInf}
+                                        />
+                                        {errors.brandName && <p className="error-text">{errors.brandName}</p>}
                                     </div>
 
                                     <div className="form-item">
                                         <label htmlFor="unit">Unit</label>
-                                        <select id="unit" name="unit" onChange={handleChange}>
-                                            <option value={product.unit}>{product.unit}</option>
-                                           
-                                        </select>
+                                        <input type="text" name="unit" id="unit" 
+                                            value={product.unit} 
+                                            disabled={type !== "new"}
+                                            onChange={handleChangeInf}
+                                        />
+                                        {errors.unit && <p className="error-text">{errors.unit}</p>}
                                     </div>
 
                                     <div className="form-item">
                                         <label htmlFor="variant">Variant</label>
-                                        <select id="variant" name="variant" onChange={handleChange}>
-                                            <option value={product.variant}>{product.variant}</option>
-                                        </select>
+                                        <input type="text" name="variant" id="variant" 
+                                            value={product.variant} 
+                                            disabled={type !== "new"}
+                                            onChange={handleChangeInf}
+                                        />
+                                        {errors.variant && <p className="error-text">{errors.variant}</p>}
                                     </div>
-
                                 </div>
 
                                 
                                 <div className="form-group">
                                     <div className="form-item">
-                                        <label htmlFor="expiryDate">Expiry Date</label>
+                                        <label htmlFor="expiry_date">Expiry Date</label>
                                         <input
                                             type="date"
-                                            id="expiryDate"
-                                            name="expiryDate"
-                                            value={product.expiry_date}
-                                            onChange={handleChange}
+                                            id="expiry_date"
+                                            name="expiry_date"
+                                            value={product.expiry_date ?? ""}
+                                            onChange={handleChangeInf}
                                         />
                                     </div>
 
-                                    <div className="form-item cursor">
-                                        <button className="item-btn">Update</button>
+                                    <div className="form-item ">
+                                        <button className="item-btn cursor" onClick={handleUpdateInf} disabled={!change}>Update</button>
                                     </div>
                                 </div>
                             </form>
@@ -285,7 +363,7 @@ const ProductItem = ({type}) => {
                                                     id="quantity"
                                                     name="quantity"
                                                     value={stockProduct.quantity}
-                                                    onChange={handleChange}
+                                                    disabled
                                                 />
                                             </div>
 
@@ -296,7 +374,7 @@ const ProductItem = ({type}) => {
                                                     id="stock"
                                                     name="stock"
                                                     value={stockProduct.stock}
-                                                    onChange={handleChange}
+                                                    onChange={handleChangeStock}
                                                 />
                                             </div>
                                         </div>
@@ -305,15 +383,14 @@ const ProductItem = ({type}) => {
                                         <div className="form-group">
                                             <div className="form-item">
                                                 <label htmlFor="status">Status</label>
-                                                <select id="status" name="status" onChange={handleChange}>
-                                                    <option value={1}>In stock</option>
-                                                    <option value={0}>Out of stock</option>
-                                                </select>
+                                                <input type="text" 
+                                                    value={stockProduct.quantity > stockProduct.stock ? "In Stock": "Out of stock"} 
+                                                    disabled
+                                                />
                                             </div>
 
-
                                             <div className="form-item">
-                                                <button className="item-btn">Update</button>
+                                                <button className="item-btn" onClick={handleUpdateStock} disabled={!isStock}>Update</button>
                                             </div>
                                         </div>
                                     </form>
@@ -323,6 +400,13 @@ const ProductItem = ({type}) => {
                     </div>
                 </div>
             </div>
+
+            {
+                modal && (
+                    <MyModal onClose={() => setModal(false)} open={modal}
+                    message={mess}  type={isUpdate ? "success" : "error"}/>
+                )
+            }
         </div>
     )
 }

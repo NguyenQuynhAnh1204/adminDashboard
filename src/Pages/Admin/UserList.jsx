@@ -2,7 +2,7 @@ import ListPage from "../../Components/List";
 import axios from "../../API/api";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { render } from "@fullcalendar/core/preact.js";
+import MyModal from "../../Components/Modal"
 
 const userColumns = [
     { field: 'id', headerName: 'ID', width: 50 },
@@ -67,26 +67,59 @@ const UserList = () => {
     const nav = useNavigate();
     const [users, setUsers] = useState();
 
+    const [deleteId, setDeleteId] = useState(null);
+    const [isDelete, setIsDelete] = useState(false);
+    const [isModal, setIsModal] = useState(false);
+
     const fetchData = async () => {
         const res = await axios.get('/user');
         setUsers(res.data.data);
+    }
+
+    const fetchDelete = async (userId) => {
+        try {
+            await axios.delete(`/user/delete/${userId}`);
+        }
+        catch (e) {
+            console.log(e);
+        }
+        
     }
 
     useEffect(() => {
         fetchData();
     }, [])
 
+    useEffect(() => {
+        if (isDelete && deleteId) {
+            fetchDelete(deleteId)
+            .then(() => {
+                window.location.reload();
+            });
+
+            setIsModal(false);
+            setIsDelete(false);
+        }
+    }, [isDelete, deleteId]);
+
     const handleEdit = (row) => {
         nav(`${row.id}`)
     }
 
     const handleDelete = (row) => {
-        console.log('Delete user', row.id)
-    }
+        setDeleteId(row.id);
+        setIsModal(true);
+    };
 
     return (
         <div>
             <ListPage title={"List Users"} columns={userColumns.concat(actionColumns)} rows={users}/>
+            {
+                isModal && (
+                    <MyModal onClose={() => setIsModal(false)} open={isModal}
+                    message={"Bạn chắc chắn muốn xoá"}  type={"warning"} onConfirm={() => setIsDelete(true)}/>
+                )
+            }
         </div>
     )
 }

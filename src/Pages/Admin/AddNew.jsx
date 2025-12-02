@@ -4,11 +4,13 @@ import Navbar from "../../Components/Navbar";
 import Sidebar from "../../Components/Sidebar";
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 import { useState, useEffect } from "react"; 
+import MyModal from "../../Components/Modal"
 
 const AddNew = () => {
 
     const [file, setFile] = useState("");
-
+    const [isNew, setIsNew] = useState(false);
+    const [errors, setErrors] = useState({});
 
 
     const [form, setForm] = useState({
@@ -49,16 +51,57 @@ const AddNew = () => {
         };
     }, [file]);
 
+    const validateForm = () => {
+        let newErrors = {};
+
+        if (!form.name.trim()) {
+            newErrors.name = "Tên không được để trống";
+        }
+
+        if (!form.email.trim()) {
+            newErrors.email = "Email không được để trống";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+            newErrors.email = "Email không hợp lệ";
+        }
+
+        if (!form.phone.trim()) {
+            newErrors.phone = "Số điện thoại không được để trống";
+        } else if (!/^(0|\+84)\d{9}$/.test(form.phone)) {
+            newErrors.phone = "Số điện thoại không hợp lệ (phải đủ 10 số)";
+        }
+
+        if (!form.address.trim()) {
+            newErrors.address = "Địa chỉ không được để trống";
+        }
+
+        if (!form.birthday) {
+            newErrors.birthday = "Ngày sinh không được để trống";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0; // true = hợp lệ
+    };
+
+
     const handleChange = (e) => {
         setForm({
             ...form,
             [e.target.name]: e.target.value
         })
+        setErrors({
+            ...errors,
+            [e.target.name]: ""
+        })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const isValid = validateForm();
+        if (!isValid) {
+            return;
+        }
         fetchNewUser();
+        setIsNew(true);
         
     }
 
@@ -92,22 +135,27 @@ const AddNew = () => {
                             <div className="form-input">
                                 <label htmlFor="">User name:</label>
                                 <input type="text" name="name" placeholder="Nguyen Van A" value={form.name} onChange={handleChange}/>
+                                {errors.name && <p className="error-text">{errors.name}</p>}
                             </div>
                             <div className="form-input">
                                 <label htmlFor="">Email:</label>
                                 <input type="text" name="email" placeholder="a@gmail.com" value={form.email} onChange={handleChange}/>
+                                {errors.email && <p className="error-text">{errors.email}</p>}
                             </div>
                             <div className="form-input">
                                 <label htmlFor="">Phone:</label>
                                 <input type="text" placeholder="+84 (0) 349457001" name="phone" value={form.phone} onChange={handleChange}/>
+                                {errors.phone && <p className="error-text">{errors.phone}</p>}
                             </div>
                             <div className="form-input">
                                 <label htmlFor="">Address:</label>
                                 <input type="text" placeholder="Ha Noi" name="address" value={form.address} onChange={handleChange}/>
+                                {errors.address && <p className="error-text">{errors.address}</p>}
                             </div>
                             <div className="form-input">
                                 <label htmlFor="">Birthday:</label>
                                 <input type="date" name="birthday" value={form.birthday} onChange={handleChange}/>
+                                {errors.birthday && <p className="error-text">{errors.birthday}</p>}
                             </div>
                            {/* <div className="form-input">
                                 <label htmlFor="role">Chức vụ:</label>
@@ -133,6 +181,12 @@ const AddNew = () => {
                     <MyCalendar/>       
                 </div>
             </div>
+
+            {
+                isNew && (
+                    <MyModal onClose={() => setIsNew(false)} message={"Tạo mới thành công!!!"} open={isNew} type={"success"}/>
+                )
+            }
         </div>
     )
 }

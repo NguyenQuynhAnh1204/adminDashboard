@@ -2,7 +2,7 @@ import ListPage from "../../Components/List";
 import axios from "../../API/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import MyModal from "../../Components/Modal";
 
 const productColumns = [
     { field: 'id', headerName: 'ID', width: 80 },
@@ -23,8 +23,8 @@ const productColumns = [
     { field: 'status', headerName: 'Status', width: 120,
         renderCell: (params) => {
             return (
-                <span className={`${params.row.status === 1 ? 'active' : 'passive'} cell-status`}>
-                    {params.row.status === 1 ? 'Active' : 'Passive'}
+                <span className={`${params.row.status === 1 ? 'active' : 'pending'} cell-status`}>
+                    {params.row.status === 1 ? 'Active' : 'Stock'}
                 </span>
             )
         }
@@ -45,7 +45,7 @@ const ProductList = () => {
         renderCell: (params) => (
         <div className='cell-table-action'>
              <button className='view-btn' onClick={() => handleView(params.row)}>View</button>
-            <button className='delete-btn' onClick={() => handleUpdate(params.row)}>Update</button>
+            <button className='delete-btn' onClick={() => handleImport(params.row)}>Import</button>
         </div>
         ),
     }
@@ -54,6 +54,10 @@ const ProductList = () => {
 
     const nav = useNavigate();
     const [products, setProducts] = useState([]);
+
+    const [deleteId, setDeleteId] = useState(null);
+    const [isDelete, setIsDelete] = useState(false);
+    const [isModal, setIsModal] = useState(false);
     
     const fetchData = async () => {
         const res = await axios.get('/product');
@@ -69,9 +73,10 @@ const ProductList = () => {
         nav(`${row.id}`);
     }
 
-    const handleUpdate = (row) => {
-        
-    }
+    // const handleImport = (row) => {
+    //     setDeleteId(row.id);
+    //     setIsModal(true);
+    // };
     
     return (
         <div>

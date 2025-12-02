@@ -178,6 +178,12 @@ a {
   background-color: rgb(241, 199, 218);
 }
 
+.error-text {
+  color: #eb2929;
+  font-size: 12px;
+  padding: 4px 0;
+}
+
 .app-dark {
   color: #e0dfdf;
 }
@@ -524,6 +530,7 @@ a {
   border: none;
   border-bottom: 1px solid gray;
   outline: none;
+  background: none;
 }
 .new-page .new-container .new-bottom .new-right .new-form .form-input select {
   width: 90%;
@@ -669,6 +676,10 @@ a {
   color: #fff;
   font-weight: bold;
   font-size: 16px;
+}
+.pro-item-page .pro-item-main .item-right .product-form .form-item .item-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .pro-item-page .pro-item-main .item-right .right-top {
   padding: 20px;
@@ -1447,15 +1458,24 @@ a {
   color: #eb2929;
   font-size: 30px;
 }
-.my-modal-box .modal-btn {
+.my-modal-box .modal-btn-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.my-modal-box .modal-btn-box .modal-btn {
   background: none;
   border: none;
-  padding: 6px;
+  padding: 6px 10px;
   margin-top: 10px;
-  width: 80px;
+  width: 150px;
   background-color: #18e818;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
   border-radius: 5px;
+}
+.my-modal-box .modal-btn-box .btn-close {
+  background-color: #eb2929;
 }/*# sourceMappingURL=index.css.map */

@@ -80,8 +80,14 @@ const Widget = ({type}) => {
 
 
     const fetchData = async () => {
-        const res = await axios(`/${type}/count`);
-        setCount(res.data.count);
+        try {
+
+            const res = await axios(`/${type}/count`);
+            setCount(res.data.count);
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     useEffect(() => {
