@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useEffect, useState, useMemo, use } from 'react';
-import { formatVND } from '../Helper/formatMoney';
+import { formatVND } from '../helper/formatMoney';
 
 
 const ProductRetail = React.memo(({data, deleteItem, handleDecrease, handleIncrease}) => {

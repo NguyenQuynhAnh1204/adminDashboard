@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import useCustomTheme from "../../CustomHook/useCustomTheme";
+import useCustomTheme from "../../customHook/useCustomTheme";
 
 const AdminLayout = () => {
     const {mode} = useCustomTheme();

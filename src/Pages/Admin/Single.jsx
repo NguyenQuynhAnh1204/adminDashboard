@@ -1,14 +1,21 @@
-import Navbar from "../../Components/Navbar"
-import Sidebar from "../../Components/Sidebar"
-import Chart from "../../Components/Chart"
-import TableList from "../../Components/Table"
+import Navbar from "../../components/Navbar"
+import Sidebar from "../../components/Sidebar"
+import Chart from "../../components/Chart"
+import TableList from "../../components/Table"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import axios from "../../API/api";
-import MyModal from "../../Components/Modal"
-import Schedule from "../../Components/ScheduleWork"
+import MyModal from "../../components/Modal"
+import Schedule from "../../components/ScheduleWork"
+import { userService } from "../../service/user.service"
 
-
+const tableTitle = [
+    "Tracking Id",
+    "Product",
+    "Quantity",
+    "Total",
+    "Method",
+    "Status"
+]
 const Single = () => {
 
     
@@ -30,16 +37,8 @@ const Single = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`/user/${userId}`);
-            setForm({
-                name: res.data.user.name,
-                phone: res.data.user.phone,
-                email: res.data.user.email,
-                birthday: res.data.user.birthday && res.data.user.birthday.split("T")[0],
-                address: res.data.user.address,
-                avatar: res.data.user.avatar,
-            });
-            
+            const userDta = await userService.getById(userId);
+            setForm(userDta);
         }
         catch (e) {
             console.log(e);
@@ -62,12 +61,7 @@ const Single = () => {
                 }
             })
 
-            const res = await axios.post(`/user/update?q=${userId}`, formData) 
-
-            console.log(res.data);
-
-           
-
+            await userService.updateUser(userId, formData);
         }
         catch (e) {
             console.log(e);
@@ -173,7 +167,7 @@ const Single = () => {
                     {btnSelect === 'transaction' && (
                         <>
                             <h1 className="single-title">Last Transaction</h1>
-                            <TableList/>
+                            <TableList titleCell={tableTitle} rows={[]}/>
                         </>
                     )}
                     {btnSelect === 'schedule' && <Schedule/>}

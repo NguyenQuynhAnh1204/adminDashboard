@@ -1,10 +1,10 @@
-import axios from "../../API/api";
-import MyCalendar from "../../Components/Calendar";
-import Navbar from "../../Components/Navbar";
-import Sidebar from "../../Components/Sidebar";
+import MyCalendar from "../../components/Calendar";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 import { useState, useEffect } from "react"; 
-import MyModal from "../../Components/Modal"
+import MyModal from "../../components/Modal"
+import { userService } from "../../service/user.service";
 
 const AddNew = () => {
 
@@ -34,9 +34,8 @@ const AddNew = () => {
             })
 
             
-            const res = await axios.post("/user/add", formData);
+            await userService.addUser(formData);
 
-            console.log(res.data);
         }
         catch(err) {    
             console.error(err);

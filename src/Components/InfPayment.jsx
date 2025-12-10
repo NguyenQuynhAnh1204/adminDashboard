@@ -1,8 +1,8 @@
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { formatVND } from '../Helper/formatMoney';
+import { formatVND } from '../helper/formatMoney';
 import React, { useEffect, useState } from 'react';
 
-const InfPayment = React.memo(({money, method, setMethod, total}) => {
+const InfPayment = React.memo(({money, method, setMethod, total, setMoney}) => {
 
   
     
@@ -14,7 +14,10 @@ const InfPayment = React.memo(({money, method, setMethod, total}) => {
                
                     <div className="pay-method">
                         <DeleteOutlineOutlinedIcon className='trash-icon cursor'
-                        onClick={() => setMethod('')}/>
+                        onClick={() => {
+                            setMoney(0),
+                            setMethod("");
+                        }}/>
                         <span>{method}</span>
 
                         <span className='money'>{formatVND(+money)}</span>

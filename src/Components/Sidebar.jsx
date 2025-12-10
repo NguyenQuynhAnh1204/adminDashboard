@@ -11,7 +11,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
 import { NavLink } from 'react-router-dom';
-import useCustomTheme from '../CustomHook/useCustomTheme';
+import useCustomTheme from '../customHook/useCustomTheme';
 
 
 const Sidebar = () => {

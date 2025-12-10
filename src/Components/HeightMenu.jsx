@@ -5,7 +5,10 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
-export default function LongMenu({height, options}) {
+export default function LongMenu({height, options, handleSelect}) {
+
+
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -53,7 +56,12 @@ export default function LongMenu({height, options}) {
         }}
       >
         {options?.map((option) => (
-          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+          <MenuItem key={option} selected={option === 'Pyxis'} 
+            onClick={() => {
+              handleSelect(option);
+              handleClose()
+            }} 
+          >
             {option}
           </MenuItem>
         ))}

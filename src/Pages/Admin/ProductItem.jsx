@@ -1,10 +1,10 @@
-import Navbar from "../../Components/Navbar"
-import Sidebar from "../../Components/Sidebar"
+import Navbar from "../../components/Navbar"
+import Sidebar from "../../components/Sidebar"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import axios from "../../API/api";
-import MyModal from "../../Components/Modal"
-import ImportForm from "../../Components/ImportProduct"
+import MyModal from "../../components/Modal"
+import ImportForm from "../../components/ImportProduct"
+import { productService } from "../../service/product.service";
 
 
 
@@ -42,19 +42,8 @@ const ProductItem = ({type}) => {
 
     const fetchProduct = async () => {
         try {
-            const res = await axios.get(`/product/${productId}`);
-            const proData = res.data.product;
-            setProduct({
-                name: proData.name,
-                barcode: proData.barcode,
-                cateName: proData.cateName,
-                brandName: proData.brandName,
-                unit: proData.unit,
-                variant: proData.variant,
-                price: proData.price,
-                expiry_date: proData.expiry_date && proData.expiry_date.split("T")[0],
-                path: proData.path
-            }); 
+            const proData = await productService.getById(productId);
+            setProduct(proData); 
 
         }
         catch (e) {
@@ -64,13 +53,8 @@ const ProductItem = ({type}) => {
 
     const fetchStock = async () => {
         try {
-            const res = await axios.get(`/product/stock/${productId}`)
-            setStockProduct({
-                quantity: res.data.stock.quantity,
-                cost: res.data.stock.cost,
-                stock: res.data.stock.stock,
-                status: res.data.stock.quantity > res.data.stock.stock ? 1 : 0
-            })
+            const stockDta = await productService.getStock(productId);
+            setStockProduct(stockDta);
         }   
         catch (e) {
             console.log(e)
@@ -91,18 +75,20 @@ const ProductItem = ({type}) => {
                     formData.append(key, product[key]);
                 }
             })
+
+            let status;
             if(type == "info") {
-                const res = await axios.post(`/product/updateInf/${productId}`, formData) ;
-                setIsUpdate(res.data.success);
+                status = await productService.updateInf(productId, formData);
             }
             else if(type == "new") {
-                const res =  await axios.post("/product/add", formData);
-                setIsUpdate(res.data.success);
+                status =  await productService.addProduct(formData);
             }
+            setIsUpdate(status);
             setMess("Cập nhật thành công")
         }
         catch (e) {
-            setIsUpdate(e.response.data.success);
+            const er = e.response?.data?.success ?? false;
+            setIsUpdate(er);
             if (type === "new") {
                 setMess("Sản phẩm đã tồn tại");
             } else if (type === 'info') {

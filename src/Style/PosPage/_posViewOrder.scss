@@ -1,0 +1,40 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.pos-print {
+    @include center;
+    flex-direction: column;
+    margin: 20px;
+    
+    .print-navigate {
+        width: 100%;
+        @include center;
+        .title {
+            font-size: 20px;
+            padding: 20px;
+            font-weight: bold;
+            color: $cl-txt-title;
+        }
+        .nav-icon {
+            display: none;
+        }
+        &:hover {
+            .nav-icon {
+                display: block;
+                color: #ccc;
+                &:hover {
+                    color: #000;
+                }
+            }
+        }
+    }
+
+    
+
+    .print-btn {
+        font-size: 40px;
+        color: blue;
+        margin: 20px;
+    }
+
+}

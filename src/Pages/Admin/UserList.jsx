@@ -1,8 +1,8 @@
-import ListPage from "../../Components/List";
-import axios from "../../API/api";
+import ListPage from "../../components/List";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import MyModal from "../../Components/Modal"
+import MyModal from "../../components/Modal"
+import { userService } from "../../service/user.service";
 
 const userColumns = [
     { field: 'id', headerName: 'ID', width: 50 },
@@ -72,13 +72,13 @@ const UserList = () => {
     const [isModal, setIsModal] = useState(false);
 
     const fetchData = async () => {
-        const res = await axios.get('/user');
-        setUsers(res.data.data);
+        const userList = await userService.getUsers();
+        setUsers(userList);
     }
 
     const fetchDelete = async (userId) => {
         try {
-            await axios.delete(`/user/delete/${userId}`);
+            await userService.deleteUser(userId);
         }
         catch (e) {
             console.log(e);

@@ -5,7 +5,7 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
-import useCustomTheme from '../CustomHook/useCustomTheme';
+import useCustomTheme from '../customHook/useCustomTheme';
 
 const Navbar = () => {
 

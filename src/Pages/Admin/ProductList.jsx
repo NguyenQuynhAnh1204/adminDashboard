@@ -1,8 +1,8 @@
-import ListPage from "../../Components/List";
-import axios from "../../API/api";
+import ListPage from "../../components/List";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MyModal from "../../Components/Modal";
+import MyModal from "../../components/Modal";
+import { productService } from "../../service/product.service";
 
 const productColumns = [
     { field: 'id', headerName: 'ID', width: 80 },
@@ -55,13 +55,13 @@ const ProductList = () => {
     const nav = useNavigate();
     const [products, setProducts] = useState([]);
 
-    const [deleteId, setDeleteId] = useState(null);
-    const [isDelete, setIsDelete] = useState(false);
-    const [isModal, setIsModal] = useState(false);
+    // const [deleteId, setDeleteId] = useState(null);
+    // const [isDelete, setIsDelete] = useState(false);
+    // const [isModal, setIsModal] = useState(false);
     
     const fetchData = async () => {
-        const res = await axios.get('/product');
-        setProducts(res.data.products);
+        const productList = await productService.getAll();
+        setProducts(productList);
     }
     
     useEffect(() => {

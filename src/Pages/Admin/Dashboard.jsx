@@ -1,12 +1,82 @@
 
-import Chart from "../../Components/Chart"
-import Feature from "../../Components/Feature"
-import Navbar from "../../Components/Navbar"
-import Sidebar from "../../Components/Sidebar"
-import Widget from "../../Components/Widget"
-import TableList from "../../Components/Table"
+import Chart from "../../components/Chart"
+import Feature from "../../components/Feature"
+import Navbar from "../../components/Navbar"
+import Sidebar from "../../components/Sidebar"
+import Widget from "../../components/Widget"
+import TableList from "../../components/Table";
 
 
+const tableTitle = [
+    "Tracking Id",
+    "Product",
+    "Quantity",
+    "Total",
+    "Method",
+    "Status"
+]
+const rows = [
+        {
+            id: 1,
+            product: 'Apple',
+            img: "/apple-pro.png",
+            customer: 'Anh',
+            date: '1 month',
+            amount: 12000,
+            method: 'cash',
+            status: 'approved'
+        },
+        {
+            id: 2,
+            product: 'Apple',
+            img: "/apple-pro.png",
+            customer: 'Anh',
+            date: '1 month',
+            amount: 12000,
+            method: 'payment',
+            status: 'pending'
+        },
+        {
+            id: 3,
+            product: 'Apple',
+            img: "/apple-pro.png",
+            customer: 'Anh',
+            date: '1 month',
+            amount: 12000,
+            method: 'cash',
+            status: 'approved'
+        },
+        {
+            id: 4,
+            product: 'Apple',
+            img: "/apple-pro.png",
+            customer: 'Anh',
+            date: '1 month',
+            amount: 12000,
+            method: 'payment',
+            status: 'approved'
+        },
+        {
+            id: 5,
+            product: 'Apple',
+            img: "/apple-pro.png",
+            customer: 'Anh',
+            date: '1 month',
+            amount: 12000,
+            method: 'payment',
+            status: 'pending'
+        },
+        {
+            id: 6,
+            product: 'Apple',
+            img: "/apple-pro.png",
+            customer: 'Anh',
+            date: '1 month',
+            amount: 12000,
+            method: 'cash',
+            status: 'approved'
+        }
+    ]
 const Dashboard = () => {
     return (
         <div className="dashboard">
@@ -29,7 +99,7 @@ const Dashboard = () => {
 
                 <div className="dashboard-list-container shadow">
                     <div className="list-title">Latest Transactions</div>
-                    <TableList/>
+                    <TableList titleCell={tableTitle} rows={rows}/>
                 </div>
             </div>
         </div>

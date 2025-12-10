@@ -1,0 +1,74 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+.receipt-container {
+        border: 1px dotted #999;
+        padding: 20px;
+        width:  50vh;
+        min-height: 80vh;
+        
+
+        .receipt-top {
+            border-bottom: 1px dotted #999;
+            padding: 20px 0;
+            .receipt-title {
+                padding: 20px;
+                width: 100%;
+                text-align: center;
+                font-weight: bold;
+            }
+            .line {
+                line-height: 1.5;
+                display: flex;
+                align-items: center;
+                gap: 10px;         /* khoảng cách nhỏ giữa label và value */
+            }
+            .label {
+                min-width: 120px;  /* chỉnh để các dấu ":" thẳng hàng */
+                font-weight: 500;
+                display: inline-block;
+            }
+           
+        }
+        
+        .receipt-content {
+            .content-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+            
+            .content-title {
+                padding: 20px 0;
+                font-weight: bold;
+            }
+            
+            .content-item {
+                border-bottom: 1px dotted #999;
+                padding: 20px 0;
+                line-height: 1.4;
+            }
+        }
+        
+        .receipt-bot {
+            padding: 20px 0;
+            width: 100%;
+            border-bottom: 1px dotted #999;
+            
+            
+            p {
+                line-height: 1.4;
+                display: flex;
+                justify-content: space-between; /* Text bên trái - giá trị bên phải */
+                margin: 4px 0;
+                span {
+                    text-align: right; /* đảm bảo chữ trong span căn phải */
+                    min-width: 100px;
+                }
+                &:last-child {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        
+    }

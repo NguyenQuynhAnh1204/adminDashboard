@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -582,6 +583,9 @@ a {
   font-size: 20px;
   font-weight: 500;
 }
+.order-page .order-container .order-table {
+  padding: 20px;
+}
 
 .pro-item-page {
   display: flex;
@@ -933,6 +937,81 @@ a {
 .pos-home .home-container .home-right .right-bottom .item-btn:nth-child(4):active {
   background-color: #0088ff;
   color: #fff;
+}
+.pos-home .home-container .home-right .right-bottom .btn-disable {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pos-print {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px;
+}
+.pos-print .print-navigate {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pos-print .print-navigate .title {
+  font-size: 20px;
+  padding: 20px;
+  font-weight: bold;
+  color: #777;
+}
+.pos-print .print-navigate .nav-icon {
+  display: none;
+}
+.pos-print .print-navigate:hover .nav-icon {
+  display: block;
+  color: #ccc;
+}
+.pos-print .print-navigate:hover .nav-icon:hover {
+  color: #000;
+}
+.pos-print .print-btn {
+  font-size: 40px;
+  color: blue;
+  margin: 20px;
+}
+
+.pos-pay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px;
+}
+.pos-pay .title {
+  font-size: 20px;
+  padding: 20px;
+  font-weight: bold;
+  color: #777;
+}
+.pos-pay .pos-pay-btn {
+  margin: 20px;
+  display: flex;
+  gap: 40px;
+}
+.pos-pay .pos-pay-btn button {
+  width: 100px;
+  padding: 6px 12px;
+  border: none;
+  background: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.pos-pay .pos-pay-btn button:first-child {
+  background-color: #ccc;
+}
+.pos-pay .pos-pay-btn button:last-child {
+  background-color: blue;
 }
 
 .navbar {
@@ -1478,4 +1557,63 @@ a {
 }
 .my-modal-box .modal-btn-box .btn-close {
   background-color: #eb2929;
+}
+
+.receipt-container {
+  border: 1px dotted #999;
+  padding: 20px;
+  width: 50vh;
+  min-height: 80vh;
+}
+.receipt-container .receipt-top {
+  border-bottom: 1px dotted #999;
+  padding: 20px 0;
+}
+.receipt-container .receipt-top .receipt-title {
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+.receipt-container .receipt-top .line {
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* khoảng cách nhỏ giữa label và value */
+}
+.receipt-container .receipt-top .label {
+  min-width: 120px; /* chỉnh để các dấu ":" thẳng hàng */
+  font-weight: 500;
+  display: inline-block;
+}
+.receipt-container .receipt-content .content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+}
+.receipt-container .receipt-content .content-title {
+  padding: 20px 0;
+  font-weight: bold;
+}
+.receipt-container .receipt-content .content-item {
+  border-bottom: 1px dotted #999;
+  padding: 20px 0;
+  line-height: 1.4;
+}
+.receipt-container .receipt-bot {
+  padding: 20px 0;
+  width: 100%;
+  border-bottom: 1px dotted #999;
+}
+.receipt-container .receipt-bot p {
+  line-height: 1.4;
+  display: flex;
+  justify-content: space-between; /* Text bên trái - giá trị bên phải */
+  margin: 4px 0;
+}
+.receipt-container .receipt-bot p span {
+  text-align: right; /* đảm bảo chữ trong span căn phải */
+  min-width: 100px;
+}
+.receipt-container .receipt-bot p:last-child {
+  font-weight: bold;
 }/*# sourceMappingURL=index.css.map */

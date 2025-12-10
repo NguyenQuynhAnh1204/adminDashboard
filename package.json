@@ -22,9 +22,11 @@
     "@mui/x-data-grid": "^8.16.0",
     "ag-grid-react": "^34.3.1",
     "axios": "^1.13.2",
+    "dayjs": "^1.11.19",
     "react": "^19.1.1",
     "react-circular-progressbar": "^2.2.0",
     "react-dom": "^19.1.1",
+    "react-error-boundary": "^6.0.0",
     "react-router-dom": "^7.9.5",
     "recharts": "^3.3.0",
     "sass": "^1.93.3"

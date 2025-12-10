@@ -1,8 +1,58 @@
-import Navbar from "../../Components/Navbar"
-import Sidebar from "../../Components/Sidebar"
+import { useEffect, useState } from "react"
+import CollapTable from "../../components/CollapTable"
+import Navbar from "../../components/Navbar"
+import Sidebar from "../../components/Sidebar"
+import { orderService } from "../../service/order.service"
 
+const label = ["Ordercode", "Employee", "Date", "Method", "Amount", "Status"]
+const labelChild = ["Id", "Product", "Quantity", "Price", "Total"]
+const createOrder = (order, orderDetail) => {
+    return {
+        ...order,
+        detail: orderDetail?.filter(d => d.orderId === order.orderId)
+    }
+
+}
 
 const OrderList = () => {
+
+    const [orders, setOrders] = useState([]);
+    const [detail, setDetail] = useState()
+
+    const [list, setList] = useState([]);
+
+    const fetchOrder = async () => {
+        try {
+            const orderDta = await orderService.getAll();
+            setOrders(orderDta);
+            console.log(orderDta)
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    const fetchOrderDetail = async () => {
+        try {
+            const detailDta = await orderService.getDetail();
+            setDetail(detailDta);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+    
+    useEffect(() => {
+        fetchOrder();
+        fetchOrderDetail();
+    }, [])
+
+    useEffect(() => {
+        const listOrder = orders?.map(o => createOrder(o, detail))
+        setList(listOrder);
+        console.log(listOrder);
+    }, [orders, detail])
+
     return (
         <div className="order-page">
             <Sidebar/>
@@ -14,7 +64,11 @@ const OrderList = () => {
                 
 
                 <div className="order-table">
-                    
+                    <CollapTable 
+                        rows={list} 
+                        labels={label}
+                        labelChild={labelChild}
+                    />
                 </div>
             </div>
         </div>
