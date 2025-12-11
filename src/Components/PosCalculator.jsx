@@ -17,6 +17,8 @@ const Calculator = React.memo(({money, setMoney}) => {
         setMoney(prev => prev + value);
     }
 
+    
+
     return (
         <div className="calculator">
             <div className="calc-money">

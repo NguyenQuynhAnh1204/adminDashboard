@@ -136,7 +136,7 @@ const PosOrder = (props) => {
     }
 
     const handlePayment = () => {
-        if (money.length <= 0) return;
+        if (money.length <= 0 || method.length <= 0) return;
         fetchOrder("paid")
             .then(() => {
                 audio.current.currentTime = 0;
@@ -199,11 +199,11 @@ const PosOrder = (props) => {
                 <div className='home-right'>
                     
                     <div className="right-top">
-                        <button className={`method ${method === 'cash' && 'active'}`} onClick={(e) => setMethod(e.currentTarget.value)} value='cash'>
+                        <button className={`method ${method === 'cash' && 'active'} shadow`} onClick={(e) => setMethod(e.currentTarget.value)} value='cash'>
                             <MoneyIcon className='method-icon'/>
                             Tiền mặt
                         </button>
-                        <button className={`method ${method === 'banking' && 'active'}`} onClick={(e) => setMethod(e.currentTarget.value)} value='banking'>
+                        <button className={`method ${method === 'banking' && 'active'} shadow`} onClick={(e) => setMethod(e.currentTarget.value)} value='banking'>
                             <MobileScreenShareIcon  className='method-icon'/>
                             Chuyển khoản
                         </button>
@@ -231,7 +231,7 @@ const PosOrder = (props) => {
                             <p>Lưu</p>
                         </button>
 
-                        <button className={`item-btn cursor ${(products.length === 0 || money <= 0 ) && 'btn-disable'}`} onClick={handlePayment} disabled={products.length === 0 || money <= 0}>
+                        <button className={`item-btn cursor ${(products.length === 0 || money <= 0 || method.length<=0 ) && 'btn-disable'}`} onClick={handlePayment} disabled={products.length === 0 || money <= 0 || method.length<=0}>
                             <AttachMoneyOutlinedIcon/>
                             <p>Thanh toán</p>
                         </button>

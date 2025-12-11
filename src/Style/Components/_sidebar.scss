@@ -34,7 +34,7 @@
             align-items: center;
             cursor: pointer;
             background-color: transparent;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease-out;
             &:hover {
                 background-color: $cl-main-hv;
             }

@@ -38,10 +38,10 @@ export const getAppTheme = (mode) =>
             },
           },
           body: {
-            transition: "background-color 0.5s ease-in-out, color 0.4s ease",
+            transition: "background-color 0.5s ease-in, color 0.4s ease",
           },
           ".MuiDataGrid-main": {
-            transition: "background-color 0.5s ease-in-out, color 0.4s ease",
+            transition: "background-color 0.5s ease-in, color 0.5s ease",
             backgroundColor: mode === "light" ? "#f8fafc" : "#282626ff",
             color: mode === "light" ? "#555" : "#fff",
           }

@@ -20,20 +20,25 @@
 .cell-status {
     padding: 6px;
     border-radius: 5px;
-
     &.pending {
         color: $cl-pending;
         background-color: rgb(247, 241, 225);
     }
 
-    &.approved, &.active {
+    &.approved, &.active, &.paid {
         color: $cl-active;
         background-color: rgb(217, 249, 213);
     }
 
     &.passive {
         color: $cl-passive;
-        background-color: rgb(241, 199, 218);
+        background-color: #ebbbbe;
+    }
+    
+    &.cancelled {
+        color: #e60911;
+        background-color: #f1c7da;
+       
     }
 }
 

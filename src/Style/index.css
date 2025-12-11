@@ -170,13 +170,17 @@ a {
   color: #daa520;
   background-color: rgb(247, 241, 225);
 }
-.cell-status.approved, .cell-status.active {
+.cell-status.approved, .cell-status.active, .cell-status.paid {
   color: #529252;
   background-color: rgb(217, 249, 213);
 }
 .cell-status.passive {
   color: #d069a5;
-  background-color: rgb(241, 199, 218);
+  background-color: #ebbbbe;
+}
+.cell-status.cancelled {
+  color: #e60911;
+  background-color: #f1c7da;
 }
 
 .error-text {
@@ -317,6 +321,7 @@ a {
 .dashboard .dashboard-container .dashboard-list-container {
   padding: 20px;
   margin: 20px;
+  border-radius: 5px;
 }
 .dashboard .dashboard-container .dashboard-list-container .list-title {
   color: #777;
@@ -865,16 +870,18 @@ a {
   gap: 5px;
   font-size: 12px;
   cursor: pointer;
+  transition: all 0.8s ease;
 }
 .pos-home .home-container .home-right .right-top .method.active {
-  border: 1px solid #0088ff;
+  box-shadow: 0 0 10px rgba(0, 136, 255, 0.6);
+  transform: scale(1.05);
+}
+.pos-home .home-container .home-right .right-top .method:hover {
+  transform: scale(1.1);
 }
 .pos-home .home-container .home-right .right-top .method .method-icon {
   color: #0088ff;
   font-size: 30px;
-}
-.pos-home .home-container .home-right .right-top .method:hover {
-  border: 1px solid #0088ff;
 }
 .pos-home .home-container .home-right .right-center {
   display: flex;
@@ -896,6 +903,7 @@ a {
   border: none;
   border-radius: 5px;
   font-size: 16px;
+  transition: all 0.5s ease-in;
 }
 .pos-home .home-container .home-right .right-bottom .item-btn:nth-child(1) {
   flex: 1;
@@ -1111,7 +1119,7 @@ a {
   align-items: center;
   cursor: pointer;
   background-color: transparent;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease-out;
 }
 .sidebar ul li:hover {
   background-color: #e1dcf3;
@@ -1163,6 +1171,10 @@ a {
   flex: 1;
   padding: 10px;
   border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+}
+.widget:hover {
+  transform: scale(1.06);
 }
 .widget .widget-left, .widget .widget-right {
   display: flex;
@@ -1213,6 +1225,10 @@ a {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  transition: all 0.5s ease-in-out;
+}
+.feature:hover {
+  transform: scale(1.03);
 }
 .feature .feature-top {
   flex: 1;
@@ -1424,9 +1440,11 @@ a {
   margin-right: 10px;
   font-size: 16px;
   color: #999;
+  transition: all 0.5s ease-in-out;
 }
 .calculator .calc-money .dlt-btn:hover {
   color: #000;
+  transform: scale(1.15);
 }
 .calculator .calc-money .dlt-btn:active {
   color: #999;
@@ -1443,7 +1461,6 @@ a {
 .calculator .calc-table .calc-btn {
   width: 100%;
   height: 60px;
-  background-color: antiquewhite;
   overflow: hidden;
   border-radius: 5px;
   font-size: 16px;
@@ -1452,6 +1469,7 @@ a {
   background: none;
   background-color: #cce7ff;
   cursor: pointer;
+  transition: background-color 0.5s ease-in-out;
 }
 .calculator .calc-table .calc-btn:hover {
   background-color: #0088ff;
@@ -1489,6 +1507,10 @@ a {
 }
 .inf-payment .inf-top .pay-method .trash-icon {
   font-size: 20px;
+  transition: all 0.5s ease;
+}
+.inf-payment .inf-top .pay-method .trash-icon:hover {
+  transform: scale(1.15);
 }
 .inf-payment .inf-top .pay-method .money {
   font-size: 16px;

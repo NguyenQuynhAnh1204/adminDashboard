@@ -37,7 +37,11 @@ function Row(props) {
         <TableCell align="left">{row.date}</TableCell>
         <TableCell align="left">{row.method}</TableCell>
         <TableCell align="left">{formatVND(Number(row.totalAmount))}</TableCell>
-        <TableCell align="left">{row.status}</TableCell>
+        <TableCell align="left">
+          <span className={`${row.status} cell-status`}>
+            {row.status}
+          </span>
+        </TableCell>
 
       </TableRow>
       <TableRow>

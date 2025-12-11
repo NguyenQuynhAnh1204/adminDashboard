@@ -171,16 +171,18 @@
                     gap: 5px;
                     font-size: 12px;
                     cursor: pointer;
+                    transition: all 0.8s ease; // ⭐ mượt đều cả transform + shadow
                     &.active {
-                        border: 1px solid $cl-btn-pos;
+                        box-shadow: 0 0 10px rgba($cl-btn-pos, 0.6);
+                        transform: scale(1.05); // khi active cũng phóng nhẹ
+                    }
+
+                    &:hover {
+                        transform: scale(1.1); // phóng to khi hover
                     }
                     .method-icon {
                         color: $cl-btn-pos;
                         font-size: 30px;
-                    }
-
-                    &:hover {
-                        border: 1px solid $cl-btn-pos;
                     }
                 }
             }
@@ -205,6 +207,7 @@
                     border: none;
                     border-radius: 5px;
                     font-size: 16px;
+                    transition: all 0.5s ease-in;
                     &:nth-child(1) {
                         flex: 1;
                         border: 1px solid rgb(236 180 177);

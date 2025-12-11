@@ -1,4 +1,5 @@
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
@@ -12,6 +13,7 @@ const Widget = ({type}) => {
     const nav = useNavigate();
 
     const [count, setCount] = useState(0);
+    const [growth, setGrowth] = useState(0);
 
     let data;
 
@@ -84,6 +86,7 @@ const Widget = ({type}) => {
 
             const res = await axios(`/${type}/count`);
             setCount(res.data.count);
+            setGrowth(res.data.growth | 0);
         }
         catch (e) {
             console.log(e);
@@ -91,16 +94,18 @@ const Widget = ({type}) => {
     }
 
     useEffect(() => {
-        if (type === 'product') {
+        if (type === 'product' || type === "order") {
             fetchData();
+
             return;
         }
     }, [])
-
+    
     const handleLink = () => {
         nav(`/admin/${type}s`)
     }
-
+    
+    console.log(growth)
     return (
         <div className="widget shadow">
             <div className="widget-left">
@@ -110,10 +115,19 @@ const Widget = ({type}) => {
             </div>
 
             <div className="widget-right">
-                <div className="percentage positive">
-                    <KeyboardArrowUpIcon/>
-                    {data.diff} %
-                </div>
+                {
+                    growth > 0 ? (
+                        <div className="percentage positive">
+                            <KeyboardArrowUpIcon/>
+                            {growth} %
+                        </div>
+                    ) : (
+                        <div className="percentage negative">
+                            <KeyboardArrowDownIcon/>
+                            {growth} %
+                        </div>
+                    )
+                }
 
                 {data.icon}
             </div>
