@@ -1,0 +1,42 @@
+@use '../utils' as *;
+@use '../abstract' as *;
+
+
+.revenue-container {
+
+    .revenue {
+        @include center;
+        gap: 20px;
+        .revenue-box {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 100px;
+            .title {
+                color: $cl-txt-title;
+                font-weight: bold;
+            }
+            .text {
+                font-weight: bold;
+                font-size: 24px;
+                padding: 0 12px;
+                color: $cl-success;
+            }
+            .negative {
+                color: $cl-errol;
+            }
+        }
+
+    }
+    .transaction {
+        margin: 20px 0;
+        border-radius: 5px;
+        .mess { 
+            padding: 20px;
+            font-weight: bold;
+        }
+    }
+}

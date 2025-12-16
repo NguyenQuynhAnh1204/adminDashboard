@@ -14,10 +14,44 @@
         color: $cl-txt-title;
     }
 
+    .single-side {
+        padding: 10px 0;
+        display: flex;
+        gap: 20px;
+        // border-bottom: 1px solid #999;
+        img {
+            @include circle(100px);
+            object-fit: cover;
+        }
+        
+        .single-avt {
+            flex: 4;
+            border-radius: 5px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            .single-avt-text {
+                padding: 0 10px;
+                p {
+                    font-weight: bold
+                }
+                div {
+                    @include center;
+                    gap: 10px;
+                }
+            }
+        }
+        
+        .single-revenue {
+            flex: 3;
+            border-radius: 5px;
+            padding: 20px;
+        }
+    }
     .single-top {
         padding: 20px;
         display: flex;
-        gap: 20px;
+        gap: 30px;
         
         .single-left {
             padding: 20px;
@@ -31,6 +65,7 @@
                 img {
                     width: 100%;
                     height: 100%;
+                    // object-fit: contain;
                 }
             }
 
@@ -50,7 +85,7 @@
         }
         .single-right {
             padding: 20px;
-            flex: 2;
+            flex: 3;
             position: relative;
             border-radius: 5px;
             overflow: hidden;
@@ -102,25 +137,28 @@
     }
 
     .single-filter {
-        margin: 20px 20px;
+        margin: 0 20px;
         display: flex;
         gap: 20px;
-        button {
-            border: 1px solid #ccc;
+        .btn-filter {
+            transition: all 0.5s ease-out;
+            border: none;
             background: none;
-            padding: 10px 20px;
-            border-radius: 99px;
-            color: #555;
+            border-radius: 10px;
+            color: #90a1b1;
+            font-weight: bold;
             cursor: pointer;
+            padding: 4px 12px;
         }
         .btn-active {
-            background-color: #ccc;
-            color: #000;
+            background-color: #d6d0d0;
+            color: #ffffff;
         }
     }
 
-    .single-bottom {
+    .single-content{
         padding: 20px;
-        margin: 10px 20px;
+        margin: 20px 0;
+        
     }
 }

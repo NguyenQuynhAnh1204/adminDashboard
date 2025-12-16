@@ -5,9 +5,34 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { formatVND } from '../helper/formatMoney';
+
+const renderCell = (row, col) => {
+  const value = row[col.key];
+
+  switch (col.type) {
+    case "img":
+        return (
+            <div className="cell-wrapper">
+                <img src={value?.image} alt=""/>
+                {value?.name}
+            </div>
+        )
+    case "status":
+        return (
+            <span className={`cell-status ${value}`}>
+                {value}
+            </span>
+        )
+    case "money":
+        return formatVND(Number(value));
+    default:
+       return value ?? "---";
+  }
+};
 
 
-const TableList = ({titleCell, rows}) => {
+const TableList = ({columns = [], rows = []}) => {
     return (
             <TableContainer component={Paper} className='table'>
             <Table aria-label="simple table" 
@@ -15,31 +40,21 @@ const TableList = ({titleCell, rows}) => {
             >                           
                 <TableHead>
                     <TableRow>
-                        {
-                            titleCell?.map((title, i) => (
-                                <TableCell className='table-cell' key={i}>{title}</TableCell>
-                            ))
-                        }
+                       {columns.map(col => (
+                        <TableCell key={col.key} className="table-cell">
+                            {col.label}
+                        </TableCell>
+                        ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows?.map((row) => (
-                        <TableRow key={row.id}>
-                            <TableCell className='table-cell'>{row.id}</TableCell>
-                            <TableCell className='table-cell'>
-                                <div className="cell-wrapper">
-                                    <img src={row.img} alt="" />
-                                    {row.product}
-                                </div>
+                    {rows.map((row, i) => (
+                        <TableRow key={i}>
+                        {columns.map(col => (
+                            <TableCell key={col.key} className="table-cell">
+                            {renderCell(row, col)}
                             </TableCell>
-                            <TableCell className='table-cell'>{row.customer}</TableCell>
-                            <TableCell className='table-cell'>{row.amount}</TableCell>
-                            <TableCell className='table-cell'>{row.method}</TableCell>
-                            <TableCell className='table-cell'>
-                                <span className={`${row.status} cell-status`}>
-                                    {row.status}
-                                </span>
-                            </TableCell>
+                        ))}
                         </TableRow>
                     ))}
                 </TableBody>

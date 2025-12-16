@@ -25,7 +25,7 @@ const OrderList = () => {
         try {
             const orderDta = await orderService.getAll();
             setOrders(orderDta);
-            console.log(orderDta)
+            
         }
         catch (error) {
             console.error(error);
@@ -50,7 +50,6 @@ const OrderList = () => {
     useEffect(() => {
         const listOrder = orders?.map(o => createOrder(o, detail))
         setList(listOrder);
-        console.log(listOrder);
     }, [orders, detail])
 
     return (

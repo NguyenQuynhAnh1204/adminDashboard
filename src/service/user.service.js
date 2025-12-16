@@ -17,6 +17,7 @@ export const userService = {
                 birthday: res.data.user.birthday && res.data.user.birthday.split("T")[0],
                 address: res.data.user.address,
                 avatar: res.data.user.avatar,
+                role: res.data.user.role
             }
     },
 
@@ -25,6 +26,7 @@ export const userService = {
     },
 
     async updateUser(id, data) {
+        console.log(id)
         return userApi.updateUser(id, data);
     },
 

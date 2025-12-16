@@ -372,10 +372,46 @@ a {
   margin-bottom: 20px;
   color: #777;
 }
+.single-page .single-side {
+  padding: 10px 0;
+  display: flex;
+  gap: 20px;
+}
+.single-page .single-side img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.single-page .single-side .single-avt {
+  flex: 4;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+.single-page .single-side .single-avt .single-avt-text {
+  padding: 0 10px;
+}
+.single-page .single-side .single-avt .single-avt-text p {
+  font-weight: bold;
+}
+.single-page .single-side .single-avt .single-avt-text div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.single-page .single-side .single-revenue {
+  flex: 3;
+  border-radius: 5px;
+  padding: 20px;
+}
 .single-page .single-top {
   padding: 20px;
   display: flex;
-  gap: 20px;
+  gap: 30px;
 }
 .single-page .single-top .single-left {
   padding: 20px;
@@ -407,7 +443,7 @@ a {
 }
 .single-page .single-top .single-right {
   padding: 20px;
-  flex: 2;
+  flex: 3;
   position: relative;
   border-radius: 5px;
   overflow: hidden;
@@ -455,25 +491,27 @@ a {
   font-weight: bold;
 }
 .single-page .single-filter {
-  margin: 20px 20px;
+  margin: 0 20px;
   display: flex;
   gap: 20px;
 }
-.single-page .single-filter button {
-  border: 1px solid #ccc;
+.single-page .single-filter .btn-filter {
+  transition: all 0.5s ease-out;
+  border: none;
   background: none;
-  padding: 10px 20px;
-  border-radius: 99px;
-  color: #555;
+  border-radius: 10px;
+  color: #90a1b1;
+  font-weight: bold;
   cursor: pointer;
+  padding: 4px 12px;
 }
 .single-page .single-filter .btn-active {
-  background-color: #ccc;
-  color: #000;
+  background-color: #d6d0d0;
+  color: #ffffff;
 }
-.single-page .single-bottom {
+.single-page .single-content {
   padding: 20px;
-  margin: 10px 20px;
+  margin: 20px 0;
 }
 
 .new-page {
@@ -508,7 +546,7 @@ a {
 .new-page .new-container .new-bottom .new-left .new-img {
   width: 150px;
   height: 150px;
-  border-radius: 99px;
+  border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -735,7 +773,7 @@ a {
 .pos-home .home-header .head-set .money-icon {
   width: 16px;
   height: 16px;
-  border-radius: 99px;
+  border-radius: 50%;
   background-color: #0088ff;
   color: white;
 }
@@ -796,7 +834,7 @@ a {
 .pos-home .home-container .home-left .left-top .product-search .pro-item img {
   width: 32px;
   height: 32px;
-  border-radius: 99px;
+  border-radius: 50%;
 }
 .pos-home .home-container .home-left .left-top .product-search .pro-item:hover {
   background-color: #e7e6e6;
@@ -1071,12 +1109,12 @@ a {
 .navbar .wrapper .items .item .avatar {
   width: 30px;
   height: 30px;
-  border-radius: 99px;
+  border-radius: 50%;
 }
 .navbar .wrapper .items .item .counter {
   width: 15px;
   height: 15px;
-  border-radius: 99px;
+  border-radius: 50%;
   font-size: 10px;
   background-color: red;
   display: flex;
@@ -1297,7 +1335,7 @@ a {
   border: 1px solid red;
   width: 32px;
   height: 32px;
-  border-radius: 99px;
+  border-radius: 50%;
   margin-right: 10px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -1313,7 +1351,7 @@ a {
 .data-table .cell-table-img .cell-img {
   width: 32px;
   height: 32px;
-  border-radius: 99px;
+  border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
   margin-right: 20px;
@@ -1368,7 +1406,7 @@ a {
 .product-item .product-img {
   width: 32px;
   height: 32px;
-  border-radius: 99px;
+  border-radius: 50%;
 }
 .product-item .item-left {
   flex: 6;
@@ -1637,5 +1675,42 @@ a {
   min-width: 100px;
 }
 .receipt-container .receipt-bot p:last-child {
+  font-weight: bold;
+}
+
+.revenue-container .revenue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.revenue-container .revenue .revenue-box {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100px;
+}
+.revenue-container .revenue .revenue-box .title {
+  color: #777;
+  font-weight: bold;
+}
+.revenue-container .revenue .revenue-box .text {
+  font-weight: bold;
+  font-size: 24px;
+  padding: 0 12px;
+  color: #18e818;
+}
+.revenue-container .revenue .revenue-box .negative {
+  color: #eb2929;
+}
+.revenue-container .transaction {
+  margin: 20px 0;
+  border-radius: 5px;
+}
+.revenue-container .transaction .mess {
+  padding: 20px;
   font-weight: bold;
 }/*# sourceMappingURL=index.css.map */
