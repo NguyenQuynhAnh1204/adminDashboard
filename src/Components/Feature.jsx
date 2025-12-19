@@ -7,18 +7,12 @@ import { orderService } from '../service/order.service';
 import { formatVND } from '../helper/formatMoney';
 const Feature = () => {
 
-    const [target, setTarget] = useState(0)
-    const [revenue, setRevenue] = useState(0)
-    const [growthDay, setGrowthDay] = useState(0)
-    const [growthMonth, setGrowthMonth] = useState(0)
+    const [feature, setFeature] = useState({})
 
     const fetchData = async () => {
         try {
-            const data = await orderService.getRevenueDay();
-            setRevenue(data.revenue);
-            setTarget(data.avg * 2)
-            setGrowthDay(data.growthDay)
-            setGrowthMonth(data.growthMonth)
+            const data = await orderService.getFeature();
+            setFeature(data);
         }
         catch (error) {
             console.error(error);
@@ -38,14 +32,14 @@ const Feature = () => {
 
             <div className="feature-bottom">
                 <div className="feature-chart">
-                    <CircularProgressbar value={revenue/target*100} 
-                        text={`${Number(((revenue / target) * 100).toFixed(1))}%`} 
+                    <CircularProgressbar value={Math.min(feature.growthTarget, 100)} 
+                        text={`${feature.growthTarget}%`} 
                         strokeWidth={6}
                     />
                 </div>
 
                 <p className="feature-chart_title">Total sales made today</p>
-                <p className="feature-chart_amount">{formatVND(Number(revenue))}</p>
+                <p className="feature-chart_amount">{formatVND(Number(feature.feature) | 0)}</p>
                 {/* <p className="feature-chart_desc">
                     sale sale sale sale sale sale sale sale sale sale sale sale sale sale sale
                 </p> */}
@@ -56,7 +50,7 @@ const Feature = () => {
                         <div className="item-result negative">
                             <KeyboardArrowDownOutlinedIcon fontSize='small'/>
                             <div className="result-amount">
-                                {`${Number((100 - (revenue / target) * 100).toFixed(1))}%`}
+                                {`${feature.growthTarget}%`}
                             </div>
                         </div>
                             
@@ -64,30 +58,30 @@ const Feature = () => {
 
                     <div className="item">
                         <div className="item-title">Last Day</div>
-                        <div className={`item-result positive ${growthDay > 0 ? "positive" : "negative"}`}>
+                        <div className={`item-result positive ${feature.growthDay > 0 ? "positive" : "negative"}`}>
                             {
-                                growthDay > 0 ? (
+                                feature.growthDay > 0 ? (
                                     <KeyboardArrowUpOutlinedIcon fontSize='small'/>
                                 ) : (
                                     <KeyboardArrowDownOutlinedIcon fontSize='small'/>
                                 )
                             }
-                            <div className="result-amount">{`${growthDay}%`}</div>
+                            <div className="result-amount">{`${feature.growthDay}%`}</div>
                         </div>
                             
                     </div>
 
                     <div className="item">
                         <div className="item-title">Last Month</div>
-                        <div className={`item-result positive ${growthMonth > 0 ? "positive" : "negative"}`}>
+                        <div className={`item-result positive ${feature.growthMonth > 0 ? "positive" : "negative"}`}>
                             {
-                                growthMonth > 0 ? (
+                                feature.growthMonth > 0 ? (
                                     <KeyboardArrowUpOutlinedIcon fontSize='small'/>
                                 ) : (
                                     <KeyboardArrowDownOutlinedIcon fontSize='small'/>
                                 )
                             }
-                            <div className="result-amount">{`${growthMonth}%`}</div>
+                            <div className="result-amount">{`${feature.growthMonth}%`}</div>
                         </div>
                             
                     </div>

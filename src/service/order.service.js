@@ -16,29 +16,19 @@ export const orderService = {
         const res = await orderApi.createOrder();
         return res.data.success;
     },
-    
-    async getOrderEM(id) {
-        const res = await orderApi.getByEm(id);
+
+    async getOrderWithDetail(time) {
+        const res = await orderApi.getOrderWithDetail(time);
         return res.data.orders;
     },
 
-    async getRevenue(id) {
-        const res = await orderApi.getRevenue(id);
-        return res.data.revenue;
+    async getDashboard() {
+        const res = await orderApi.getDashboard();
+        return res.data.data;
     },
-
-    async getGrowthByEm(id) {
-        const res = await orderApi.getGrowthByEm(id);
-        return res.data.growth;
-    },
-
-    async getRevenueDay() {
-        const res = await orderApi.getRevenueDay();
-        return {
-            avg: Number(res.data.avg),
-            revenue: Number(res.data.revenue),
-            growthDay: Math.floor(Number(res.data.growthDay)),
-            growthMonth: Math.floor(Number(res.data.growthMonth))
-        }
+    
+    async getFeature() {
+        const res = await orderApi.getFeature();
+        return res.data.data;
     }
 }

@@ -5,9 +5,27 @@ import Navbar from "../../components/Navbar"
 import Sidebar from "../../components/Sidebar"
 import Widget from "../../components/Widget"
 import TableList from "../../components/Table";
+import { orderService } from "../../service/order.service"
+import { useEffect, useState } from "react"
 
 
 const Dashboard = () => {
+    const [widget, setWidget] = useState({})
+
+    const fetchDashboard = async () => {
+        try {
+            const dashboard = await orderService.getDashboard();
+            setWidget(dashboard);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        fetchDashboard();
+    }, [])
+
     return (
         <div className="dashboard">
             
@@ -15,9 +33,10 @@ const Dashboard = () => {
             <div className="dashboard-container">
                 <Navbar />
                 <div className="dashboard-widgets">
-                    <Widget type="revenue"/>
-                    <Widget type="order"/>
-                    <Widget type="canceled"/>
+                    
+                    <Widget type="revenue" data={widget}/>
+                    <Widget type="order" data={widget}/>
+                    <Widget type="paidOrders" data={widget}/>
                 </div>
 
                 <div className="dashboard-chart">

@@ -44,7 +44,6 @@ const ProductItem = ({type}) => {
         try {
             const proData = await productService.getById(productId);
             setProduct(proData); 
-
         }
         catch (e) {
             console.log(e);
@@ -65,7 +64,6 @@ const ProductItem = ({type}) => {
         try {
 
             const formData = new FormData();
-
             if(file) {
                 formData.append("path", file);
             }
@@ -78,11 +76,14 @@ const ProductItem = ({type}) => {
 
             let status;
             if(type == "info") {
+                console.log(formData.get("expiry_date"));
                 status = await productService.updateInf(productId, formData);
             }
             else if(type == "new") {
                 status =  await productService.addProduct(formData);
+
             }
+            console.log(status)
             setIsUpdate(status);
             setMess("Cập nhật thành công")
         }
@@ -163,15 +164,13 @@ const ProductItem = ({type}) => {
     const handleUpdateInf = async (e) => {
         e.preventDefault();
         if (!change) return;
+
+        if (type === 'new' && !validateForm()) return;
+
         try {
-            if (type === 'new') { 
-                const isValid = validateForm();
-                if (!isValid) {
-                    return;
-                } 
-            }
-            await fetchUpdateInf();                  
-            setModal(true);             
+            await fetchUpdateInf(); // ⏳ đợi xong thật sự
+
+            setModal(true);      // ✅ lúc này isUpdate + mess đã sẵn sàng
             setChange(false);
         } catch (err) {
             console.error("Update failed:", err);
@@ -179,10 +178,11 @@ const ProductItem = ({type}) => {
     };
 
 
-    const handleUpdateStock = (e) => {
+
+    const handleUpdateStock = async (e) => {
         e.preventDefault();
         if (!isStock) return;
-        fetchUpdateStock();
+        await fetchUpdateStock();
         setIsUpdate(true);
         setIsStock(false);
     }

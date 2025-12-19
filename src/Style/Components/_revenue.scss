@@ -4,6 +4,10 @@
 
 .revenue-container {
 
+    .filter {
+        display: flex;
+        justify-content: end
+    }
     .revenue {
         @include center;
         gap: 20px;

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import CollapTable from "../../components/CollapTable"
+import LongMenu from "../../components/HeightMenu"
 import Navbar from "../../components/Navbar"
 import Sidebar from "../../components/Sidebar"
 import { orderService } from "../../service/order.service"
@@ -17,40 +18,32 @@ const createOrder = (order, orderDetail) => {
 const OrderList = () => {
 
     const [orders, setOrders] = useState([]);
-    const [detail, setDetail] = useState()
 
-    const [list, setList] = useState([]);
+    const [option, setOption] = useState("month");
+    const [loading, setLoading] = useState(false);
 
-    const fetchOrder = async () => {
+    const fetchOrder = useCallback(async () => {
+        setLoading(true);
         try {
-            const orderDta = await orderService.getAll();
+            const orderDta = await orderService.getOrderWithDetail(option);
             setOrders(orderDta);
-            
         }
-        catch (error) {
-            console.error(error);
+        finally {
+            setLoading(false);
         }
-    }
+    }, [option]) 
 
-    const fetchOrderDetail = async () => {
-        try {
-            const detailDta = await orderService.getDetail();
-            setDetail(detailDta);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
+    useEffect(() => {
+        const timer = setTimeout(fetchOrder, 300);
+        return () => clearTimeout(timer);
+    }, [fetchOrder]);
     
-    useEffect(() => {
-        fetchOrder();
-        fetchOrderDetail();
-    }, [])
-
-    useEffect(() => {
-        const listOrder = orders?.map(o => createOrder(o, detail))
-        setList(listOrder);
-    }, [orders, detail])
+    const handleSelect = (opt) => {
+        if (opt === 'Theo ngày') setOption('day');
+        if (opt === 'Theo tháng') setOption('month');
+        if (opt === 'Tất cả') setOption('all');
+    };
+    
 
     return (
         <div className="order-page">
@@ -61,10 +54,12 @@ const OrderList = () => {
 
                 <h1 className="order-title">Order List</h1>
                 
-
+                <div className="order-filter">
+                    <LongMenu height={30} options={['Theo ngày', 'Theo tháng', 'Tất cả']} handleSelect={handleSelect}/>
+                </div>
                 <div className="order-table">
                     <CollapTable 
-                        rows={list} 
+                        rows={orders} 
                         labels={label}
                         labelChild={labelChild}
                     />

@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom"
 import TableList from "./Table"
-import { orderService } from "../service/order.service";
 import { formatVND } from "../helper/formatMoney";
-import { countOrder } from "../helper/countOrder";
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-
+import LongMenu from "./HeightMenu";
+import { userService } from "../service/user.service";
 
 const columns = [
   { key: "orderCode", label: "Order Code" },
-  { key: "date", label: "Date" },
-  { key: "totalAmount", label: "Amount", type: "money" },
+  { key: "created_at", label: "Date" },
+  { key: "amount", label: "Amount", type: "money" },
   { key: "method", label: "Method" },
   { key: "status", label: "Status", type: "status" }
 ];
@@ -19,59 +18,67 @@ const columns = [
 
 
 const Revenue = () => {
-    const {userId} = useParams();
+    const { userId } = useParams();
+    const [revenue, setRevenue] = useState({});
+    const [orders, setOrders] = useState([]);
 
-    const [order, setOrder] = useState([]);
-    const [revenue, setRevenue] = useState(0);
-    const [growth, setGrowth] = useState(0);
+    const [option, setOption] = useState("month");
+    const [loading, setLoading] = useState(false);
 
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
+        if (!userId) return;
+        setLoading(true);
         try {
-            const orderDta = await orderService.getOrderEM(userId);
-            const reveDta = await orderService.getRevenue(userId);
-            const growthDta = await orderService.getGrowthByEm(userId);
-            setOrder(orderDta);
-            setRevenue(reveDta);
-            setGrowth(growthDta);
-        }   
-        catch (e) {
-            throw e;
-        }    
-    }
+            const revenueData = await userService.getDashboard(Number(userId), option);
+            const orderData = await userService.getOrders(Number(userId), option);
+            setRevenue(revenueData);
+            setOrders(orderData);
+        } finally {
+            setLoading(false);
+        }
+    }, [userId, option]);
 
 
     useEffect(() => {
-        fetchData();
-    }, [])
+        const timer = setTimeout(fetchData, 300);
+        return () => clearTimeout(timer);
+    }, [fetchData]);
 
+    const handleSelect = (opt) => {
+        if (opt === 'Theo ngày') setOption('day');
+        if (opt === 'Theo tháng') setOption('month');
+    };
     
 
     return (
         <div className="revenue-container">
+            <div className="filter">
+                <LongMenu height={30} options={['Theo ngày', 'Theo tháng']} handleSelect={handleSelect}/>
+            </div>
             
             <div className="revenue">
                 <div className="revenue-box shadow">
                     <p className="title">Doanh thu</p>
-                    <p className="text">{formatVND(Number(revenue))}</p>
+                    <p className="text">{formatVND(Number(revenue?.revenue?.total))}</p>
                 </div>
                 <div className="revenue-box shadow">
                     <p className="title">Tổng đơn</p>
-                    <p className="text">{order.length}</p>
+                    <p className="text">{revenue?.orders?.total}</p>
                 </div>
                 <div className="revenue-box shadow">
                     <p className="title">Đơn huỷ</p>
                     <p className="text negative">{
-                        countOrder(order, "cancelled")    
+                        revenue?.cancelOrder?.total  
                     }</p>
                 </div>
                 <div className="revenue-box shadow">
                     <p className="title">Growth</p>
-                    <p className={`text ${growth < 0 && 'negative'}`}>
+                    <p className={`text ${revenue?.revenue?.growth <= 0 && 'negative'}`}>
                         <span>
-                            {growth > 0 ? (<KeyboardDoubleArrowUpIcon/>) : (<KeyboardDoubleArrowDownIcon/>)}
+                            {revenue?.revenue?.growth > 0 ? (<KeyboardDoubleArrowUpIcon/>) : (<KeyboardDoubleArrowDownIcon/>)}
                         </span>
-                        {Math.abs(growth)} % 
+                        {revenue?.revenue?.growth} % 
                     </p>
                 </div>
             </div>
@@ -79,10 +86,10 @@ const Revenue = () => {
             <div className="transaction shadow">
 
                 {
-                    order?.length > 0 ? (
+                    orders?.length > 0 ? (
                         <TableList
                              columns={columns}
-                             rows={order}
+                             rows={orders}
                         />
                     ) : (
                         <p className="mess">Chưa có đơn hàng nào !!!</p>

@@ -14,21 +14,15 @@ export const orderApi = {
         return axios.post("/order")
     },
 
-    getByEm(id) {
-        return axios.get(`/order/em?id=${id}`);
+    getOrderWithDetail(time) {
+        return axios.get(`/order?q=${time}`);
     },
-
-    getRevenue(id) {
-        return axios.get(`/order/revenue?id=${id}`);
-    },
-
-    getGrowthByEm(id) {
-        return axios.get(`/order/growth?id=${id}`);
-    },
-
-    getRevenueDay() {
-        return axios.get("/order/revenue/day");
-    }
-
     
+    getDashboard() {
+        return axios.get("/order/dashboard");
+    },
+
+    getFeature() {
+        return axios.get("/order/feature");  
+    }
 }

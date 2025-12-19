@@ -43,6 +43,8 @@ export const productService = {
     },
 
     async updateInf(id, data) {
+        console.log(id);
+        console.log(data);
         const res = await productApi.updateInf(id, data);
         return res.data.success;
     },

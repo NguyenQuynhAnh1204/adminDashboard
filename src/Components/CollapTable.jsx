@@ -59,7 +59,7 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.detail?.map((dr, i) => (
+                  {row.details?.map((dr, i) => (
                     <TableRow key={i}>
                       <TableCell component="th" scope="row" align="center">
                         {dr.variantId}
@@ -100,7 +100,7 @@ const CollapTable = ({rows, labels, labelChild}) => {
         </TableHead>
         <TableBody>
           {rows?.map((row, i) => (
-            <Row key={i} row={row} labels={labelChild} detailColumns={row.detail}/>
+            <Row key={i} row={row} labels={labelChild} detailColumns={row.details}/>
           ))}
         </TableBody>
       </Table>

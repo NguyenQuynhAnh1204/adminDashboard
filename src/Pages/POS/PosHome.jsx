@@ -14,6 +14,7 @@ const PosHome = () => {
     useEffect(() => {
         console.log("", option);
     }, [option])
+    
     const handleSelect = (opt) => {
         setOption(opt);
     }

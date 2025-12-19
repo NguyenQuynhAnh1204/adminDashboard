@@ -3,30 +3,23 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import { useNavigate } from 'react-router-dom';
 import axios from "../api/axios"
-import { useEffect, useState } from 'react';
 import { formatVND } from '../helper/formatMoney';
 
-const Widget = ({type}) => {
+const Widget = ({type, data}) => {
 
     const nav = useNavigate();
 
-    const [count, setCount] = useState(0);
-    const [growth, setGrowth] = useState(0);
-
-    let data;
-
-    // diff (tăng trưởng) = (hiện tại - trước) / trước x 100 
-
+    let widgetDta;
     switch (type) {
         case "order":
-            data = {
+            widgetDta = {
                 title: "Order",
                 isMoney: false,
                 link: "View all orders",
-                api: "/order/count",
+                total: data?.[type]?.total,
+                growth: data?.[type]?.growth,
                 icon: <ShoppingCartOutlinedIcon className='widget-icon'
                 style={{
                     color: "goldenrod",
@@ -36,10 +29,11 @@ const Widget = ({type}) => {
             }
             break;
         case "revenue":
-            data = {
+            widgetDta = {
                 title: "Revenue",
                 isMoney: true,
-                api: "/order/revenue",
+                total: data?.[type]?.total,
+                growth: data?.[type]?.growth,
                 icon: <MonetizationOnOutlinedIcon className='widget-icon'
                 style={{
                     color: "green",
@@ -48,11 +42,12 @@ const Widget = ({type}) => {
                 />
             }
             break;
-        case "canceled":
-            data = {
-                title: "Canceled Order",
+        case "paidOrders":
+            widgetDta = {
+                title: "Paid Order",
                 isMoney: false,
-                api: "/order/cancel",
+                total: data?.[type]?.total,
+                growth: data?.[type]?.growth,
                 icon: <CancelPresentationIcon className='widget-icon'
                 style={{
                     color: "purple",
@@ -66,23 +61,6 @@ const Widget = ({type}) => {
         
     }
 
-
-    const fetchData = async () => {
-        try {
-
-            const res = await axios(`${data.api}`);
-            setCount(res.data.count);
-            setGrowth(res.data.growth | 0);
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, [])
-    
     const handleLink = () => {
         nav(`/admin/${type}s`)
     }
@@ -90,27 +68,27 @@ const Widget = ({type}) => {
     return (
         <div className="widget shadow">
             <div className="widget-left">
-                <span className="widget-title">{data.title}</span>
-                <span className="widget-counter">{data.isMoney ? formatVND(Number(count)) : count}</span>
-                <span className="widget-link cursor" onClick={handleLink}>{data.link}</span>
+                <span className="widget-title">{widgetDta.title}</span>
+                <span className="widget-counter">{widgetDta.isMoney ? formatVND(Number(widgetDta.total)) : Number(widgetDta.total)}</span>
+                <span className="widget-link cursor" onClick={handleLink}>{widgetDta.link || ""}</span>
             </div>
 
             <div className="widget-right">
                 {
-                    growth > 0 ? (
+                    widgetDta.growth >= 0 ? (
                         <div className="percentage positive">
                             <KeyboardArrowUpIcon/>
-                            {growth} %
+                             {widgetDta.growth}%
                         </div>
                     ) : (
                         <div className="percentage negative">
                             <KeyboardArrowDownIcon/>
-                            {Math.abs(growth)} %
+                            {widgetDta.growth}%
                         </div>
                     )
                 }
 
-                {data.icon}
+                {widgetDta.icon}
             </div>
         </div>
     )

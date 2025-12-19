@@ -506,8 +506,7 @@ a {
   padding: 4px 12px;
 }
 .single-page .single-filter .btn-active {
-  background-color: #d6d0d0;
-  color: #ffffff;
+  color: #536bcb;
 }
 .single-page .single-content {
   padding: 20px;
@@ -625,6 +624,11 @@ a {
   color: #777;
   font-size: 20px;
   font-weight: 500;
+}
+.order-page .order-container .order-filter {
+  display: flex;
+  justify-content: end;
+  padding: 0 20px;
 }
 .order-page .order-container .order-table {
   padding: 20px;
@@ -1678,6 +1682,10 @@ a {
   font-weight: bold;
 }
 
+.revenue-container .filter {
+  display: flex;
+  justify-content: end;
+}
 .revenue-container .revenue {
   display: flex;
   align-items: center;

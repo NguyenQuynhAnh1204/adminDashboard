@@ -26,11 +26,20 @@ export const userService = {
     },
 
     async updateUser(id, data) {
-        console.log(id)
         return userApi.updateUser(id, data);
     },
 
     async deleteUser(userId) {
         return userApi.deleteUser(userId); 
+    },
+
+    async getDashboard(userId, time) {
+        const res = await userApi.getDashboard(userId, time)
+        return res.data.dashboard;
+    },
+
+    async getOrders(userId, time) {
+        const res = await userApi.getOrder(userId,time)
+        return res.data.orders;
     }
 }

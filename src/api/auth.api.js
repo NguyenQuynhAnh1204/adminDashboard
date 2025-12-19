@@ -26,6 +26,13 @@ export const userApi = {
     return axios.delete(`/user/delete/${id}`)
    },
 
+   // lấy danh sách order theo ngày/tháng
+   getOrder(id, time) {
+      return axios.get(`/user/order/${id}?q=${time}`);
+   },
 
+   getDashboard(id, time) {
+      return axios.get(`/user/dashboard/${id}?q=${time}`);
+   },
 }
 

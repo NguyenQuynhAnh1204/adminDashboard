@@ -28,6 +28,7 @@ export const productApi = {
     },
 
     updateInf(id, data) {
+        console.log(id)
         return axios.post(`/product/updateInf/${id}`, data)
     },
 
