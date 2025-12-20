@@ -8,13 +8,25 @@ import TableList from "../../components/Table";
 import { orderService } from "../../service/order.service"
 import { useEffect, useState } from "react"
 
+const columns = [
+  { key: "orderCode", label: "Order Code" },
+  { key: "userName", label:"Employee"},
+  { key: "date", label: "Date" },
+  { key: "totalAmount", label: "Amount", type: "money" },
+  { key: "method", label: "Method" },
+  { key: "status", label: "Status", type: "status" }
+];
 
 const Dashboard = () => {
     const [widget, setWidget] = useState({})
 
+    const [orders, setOrders] = useState([]);
+
     const fetchDashboard = async () => {
         try {
             const dashboard = await orderService.getDashboard();
+            const orderDta = await orderService.getOrders();
+            setOrders(orderDta)
             setWidget(dashboard);
         }
         catch (e) {
@@ -46,7 +58,7 @@ const Dashboard = () => {
 
                 <div className="dashboard-list-container shadow">
                     <div className="list-title">Latest Transactions</div>
-                    {/* <TableList titleCell={tableTitle} rows={rows}/> */}
+                    <TableList columns={columns} rows={orders}/>
                 </div>
             </div>
         </div>

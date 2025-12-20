@@ -221,7 +221,6 @@ a {
   min-width: 400px;
   min-height: 500px;
   border-radius: 5px;
-  background-color: rgba(220, 198, 244, 0.1);
   color: #fff;
   display: flex;
   align-items: center;
@@ -242,55 +241,37 @@ a {
   cursor: pointer;
 }
 .home .home-container .home-box form {
-  margin-top: 70px;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  width: 100%;
-  gap: 24px;
-}
-.home .home-container .home-box form .input-box {
-  width: 80%;
-  position: relative;
-}
-.home .home-container .home-box form .input-box input {
-  font-size: 16px;
-  color: #fff;
-  width: 100%;
-  background: none;
-  border: none;
-  outline: none;
-  padding: 6px;
-  border-bottom: 1px solid #999;
-}
-.home .home-container .home-box form .input-box input::-moz-placeholder {
-  color: #999;
-}
-.home .home-container .home-box form .input-box input::placeholder {
-  color: #999;
-}
-.home .home-container .home-box form .input-box::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  width: 0%;
-  background-color: #222;
-  transition: width 0.5s;
-}
-.home .home-container .home-box form .input-box:has(input:focus)::after {
-  width: 100%;
 }
 .home .home-container .home-box form button {
-  width: 80%;
-  padding: 10px;
+  padding: 10px 20px;
   margin: 10px 0;
   background: none;
   border: 1px solid #ccc;
   border-radius: 5px;
   color: #fff;
   font-size: 16px;
+}
+.home .home-container .home-box form .pin-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+.home .home-container .home-box form .pin-box {
+  width: 50px;
+  height: 60px;
+  font-size: 28px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
+.home .home-container .home-box form .pin-box:focus {
+  border-color: #4caf50;
+  outline: none;
 }
 
 @keyframes gradientWave {

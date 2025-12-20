@@ -30,5 +30,10 @@ export const orderService = {
     async getFeature() {
         const res = await orderApi.getFeature();
         return res.data.data;
+    },
+
+    async getOrders() {
+        const res = await orderApi.getOrders();
+        return res.data.orders
     }
 }

@@ -13,6 +13,7 @@ const Feature = () => {
         try {
             const data = await orderService.getFeature();
             setFeature(data);
+            console.log(data);
         }
         catch (error) {
             console.error(error);
@@ -39,7 +40,7 @@ const Feature = () => {
                 </div>
 
                 <p className="feature-chart_title">Total sales made today</p>
-                <p className="feature-chart_amount">{formatVND(Number(feature.feature) | 0)}</p>
+                <p className="feature-chart_amount">{formatVND(Number(feature.revenueToday) | 0)}</p>
                 {/* <p className="feature-chart_desc">
                     sale sale sale sale sale sale sale sale sale sale sale sale sale sale sale
                 </p> */}

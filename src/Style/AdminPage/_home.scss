@@ -17,7 +17,6 @@
             min-width: 400px;
             min-height: 500px;
             border-radius: 5px;
-            background-color: rgba($color: #dcc6f4d6, $alpha: 0.1);
             color: #fff;
             @include align-ct;
             flex-direction: column;
@@ -39,49 +38,10 @@
             }
 
             form {
-                margin-top: 70px;
-                display: flex;
-                align-items: center;
+                @include center;
                 flex-direction: column;
-                width: 100%;
-                gap: 24px;
-                .input-box {
-                    width: 80%;
-                    position: relative;
-                    input {
-                        font-size: 16px;
-                        color: #fff;
-                        width: 100%;
-                        background: none;
-                        border: none;
-                        outline: none;
-                        padding: 6px;
-                        border-bottom: 1px solid #999;
-                        &::placeholder {
-                            color: #999;
-                        }
-                    }
-
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        height: 1px;
-                        width: 0%;
-                        background-color: #222;
-                        transition: width 0.5s;
-                    }
-
-                    &:has(input:focus)::after {
-                        width: 100%;
-                    }
-
-                }
-
                 button {
-                    width: 80%;
-                    padding: 10px;
+                    padding: 10px 20px;
                     margin: 10px 0;
                     background: none;
                     border: 1px solid #ccc;
@@ -89,6 +49,27 @@
                     color: #fff;
                     font-size: 16px;
                 }
+                .pin-inputs {
+                    display: flex;
+                    justify-content: center;
+                    gap: 12px;
+                    margin: 20px 0;
+                }
+
+                .pin-box {
+                    width: 50px;
+                    height: 60px;
+                    font-size: 28px;
+                    text-align: center;
+                    border: 2px solid #ccc;
+                    border-radius: 8px;
+                }
+
+                .pin-box:focus {
+                    border-color: #4caf50;
+                    outline: none;
+                }
+
             }
         }
     }

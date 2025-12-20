@@ -24,5 +24,9 @@ export const orderApi = {
 
     getFeature() {
         return axios.get("/order/feature");  
+    },
+
+    getOrders() {
+        return axios.get("/order/orders");
     }
 }

@@ -1,57 +1,85 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const HomePage = () => {
-
-    const [data, setData] = useState({});
-
+    const [pin, setPin] = useState(["", "", "", "", "", ""]);
+    const [error, setError] = useState("");
+    const inputsRef = useRef([]);
     const nav = useNavigate();
+
+    const handleChange = (value, index) => {
+        if (!/^\d?$/.test(value)) return;
+
+        const newPin = [...pin];
+        newPin[index] = value;
+        setPin(newPin);
+
+        if (value && index < 6) {
+            inputsRef.current[index + 1].focus();
+        }
+    };
+
+    const handleKeyDown = (e, index) => {
+        if (e.key === "Backspace" && !pin[index] && index > 0) {
+            inputsRef.current[index - 1].focus();
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        const pinCode = pin.join("");
 
-        const formData = new FormData(e.target);
-
-        const dataE = Object.fromEntries(formData.entries());
-
-        if (dataE?.userName === 'admin') {
-            nav('/admin/dashboard', {replace: true});
-            return;
+        if (pinCode === "121204") {
+            nav("/admin/dashboard", { replace: true });
+        } else {
+            setError("Sai mã PIN");
+            setPin(["", "", "", "", "", ""]);
+            inputsRef.current[0].focus();
         }
-        if (dataE?.userName === "cashier") {
-            nav("/pos/home", {replace: true})
-            return;
-        }
-    }
+    };
 
     return (
         <div className="home">
-            <div className="home-container shadow">
+            <div className="home-container">
                 <div className="home-box">
-                    <h1 className="title">Welcom Back!</h1>
-
-                    <p className="text">Bạn là người quản lý hay là nhân viên thu ngân?</p>
-                    <p className="text">Hãy đăng nhập vào hệ thống ngay nhé!</p>
+                    <h1 className="title">Nhập mã PIN</h1>
 
                     <form onSubmit={handleSubmit}>
-                        
-                        <div className="input-box">
-                            <input type="text" placeholder="admin / cashier" name="userName"/>
-                        </div>
-                        <div className="input-box">
-                            <input type="password" placeholder="password" name="password"/>
+                        <div className="pin-inputs">
+                            {pin.map((digit, index) => (
+                                <input
+                                    key={index}
+                                    ref={(el) => (inputsRef.current[index] = el)}
+                                    type="password"
+                                    inputMode="numeric"
+                                    maxLength={1}
+                                    value={digit}
+                                    onChange={(e) =>
+                                        handleChange(e.target.value, index)
+                                    }
+                                    onKeyDown={(e) =>
+                                        handleKeyDown(e, index)
+                                    }
+                                    className="pin-box"
+                                    autoFocus={index === 0}
+                                />
+                            ))}
                         </div>
 
-                        <button className="btn-login cursor" type="submit">Đăng nhập</button>
+                        {error && <p className="error-text">{error}</p>}
+
+                        <button
+                            className="btn-login cursor"
+                            type="submit"
+                            disabled={pin.some((d) => d === "")}
+                        >
+                            Vào hệ thống
+                        </button>
                     </form>
-                    <p className="text">Forget password? <span>Click hear</span></p>
-                    
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default HomePage
+export default HomePage;
