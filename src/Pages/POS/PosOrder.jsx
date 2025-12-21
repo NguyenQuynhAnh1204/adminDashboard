@@ -12,6 +12,7 @@ import { formatVND } from '../../helper/formatMoney';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "../../api/axios";
+import { productService } from '../../service/product.service';
 
 const PosOrder = (props) => {
 
@@ -35,8 +36,8 @@ const PosOrder = (props) => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`/product?q=${search}`);
-            setData(res.data.products);
+            const proDta = await productService.getPos(search);
+            setData(proDta);
         }
         catch (e) {
             console.log(e);

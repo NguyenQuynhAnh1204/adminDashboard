@@ -24,7 +24,7 @@ const productColumns = [
         renderCell: (params) => {
             return (
                 <span className={`${params.row.status === 1 ? 'active' : 'pending'} cell-status`}>
-                    {params.row.status === 1 ? 'Active' : 'Stock'}
+                    {params.row.status === 1 ? 'Active' : 'Out of stock'}
                 </span>
             )
         }
@@ -54,10 +54,6 @@ const ProductList = () => {
 
     const nav = useNavigate();
     const [products, setProducts] = useState([]);
-
-    // const [deleteId, setDeleteId] = useState(null);
-    // const [isDelete, setIsDelete] = useState(false);
-    // const [isModal, setIsModal] = useState(false);
     
     const fetchData = async () => {
         const productList = await productService.getAll();

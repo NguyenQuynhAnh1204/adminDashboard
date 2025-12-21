@@ -7,6 +7,10 @@ export const productApi = {
         return axios.get("/product")
     },
 
+    getPos(key) {
+        return axios.get(`/product/pos?q=${key}`)
+    },
+
     getCategory() {
         return axios.get("/product/cate")
     },

@@ -9,6 +9,10 @@ export const productService = {
         return res.data.products;
     },
 
+    async getPos(key) {
+        const res = await productApi.getPos(key);
+        return res.data.products;
+    },
 
     async getById(id) {
         const res = await productApi.getById(id);
