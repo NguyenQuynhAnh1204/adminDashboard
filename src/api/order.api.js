@@ -15,7 +15,7 @@ export const orderApi = {
     },
 
     getOrderWithDetail(time) {
-        return axios.get(`/order?q=${time}`);
+        return axios.get(`/order/detail?q=${time}`);
     },
     
     getDashboard() {

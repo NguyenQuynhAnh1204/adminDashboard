@@ -7,13 +7,6 @@ import { orderService } from "../../service/order.service"
 
 const label = ["Ordercode", "Employee", "Date", "Method", "Amount", "Status"]
 const labelChild = ["Id", "Product", "Quantity", "Price", "Total"]
-const createOrder = (order, orderDetail) => {
-    return {
-        ...order,
-        detail: orderDetail?.filter(d => d.orderId === order.orderId)
-    }
-
-}
 
 const OrderList = () => {
 
@@ -27,6 +20,7 @@ const OrderList = () => {
         try {
             const orderDta = await orderService.getOrderWithDetail(option);
             setOrders(orderDta);
+            console.log(orderDta);
         }
         finally {
             setLoading(false);
