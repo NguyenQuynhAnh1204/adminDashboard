@@ -1,8 +1,7 @@
 // src/pages/HomePage.scss
+@use '../utils' as *;
+@use '../abstract' as *;
 
-$primary-color: #4caf50;
-$secondary-color: #555;
-$bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
 .home {
   min-height: 100vh;

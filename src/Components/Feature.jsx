@@ -47,8 +47,14 @@ const Feature = () => {
                 <div className="feature-summary">
                     <div className="item">
                         <div className="item-title">Target</div>
-                        <div className="item-result negative">
-                            <KeyboardArrowDownOutlinedIcon fontSize='small'/>
+                        <div className={`item-result positive ${feature.growthDay > 0 ? "positive" : "negative"}`}>
+                            {
+                                feature.growthTarget > 0 ? (
+                                    <KeyboardArrowUpOutlinedIcon fontSize='small'/>
+                                ) : (
+                                    <KeyboardArrowDownOutlinedIcon fontSize='small'/>
+                                )
+                            }
                             <div className="result-amount">
                                 {`${feature.growthTarget}%`}
                             </div>

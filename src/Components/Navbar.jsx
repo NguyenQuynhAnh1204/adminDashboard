@@ -1,6 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import LanguageIcon from '@mui/icons-material/Language';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
@@ -31,7 +32,13 @@ const Navbar = () => {
                         English
                     </div>
                     <div className='item' onClick={handleTheme}>
-                        <DarkModeOutlinedIcon className='icon'/>
+                        {
+                            mode === 'light' ? (
+                                <LightModeOutlinedIcon/>
+                            ) : (
+                                <DarkModeOutlinedIcon className='icon'/>
+                            )
+                        }
                     </div>
                     <div className='item'>
                         <NotificationsOutlinedIcon className='icon'/>

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CORRECT_PIN = "121204";
+const CORRECT_PIN = import.meta.env.VITE_ADMIN_PIN;
 
 const HomePage = () => {
   const [pin, setPin] = useState(["", "", "", "", "", ""]);
