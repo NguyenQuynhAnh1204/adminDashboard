@@ -1,8 +1,10 @@
 import ListPage from "../../components/List";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import MyModal from "../../components/Modal";
 import { productService } from "../../service/product.service";
+import ImportModal from "./ImportModal";
+import { toast } from "react-toastify";
+import { importService } from "../../service/import.service";
 
 const productColumns = [
     { field: 'id', headerName: 'ID', width: 80 },
@@ -34,6 +36,9 @@ const productColumns = [
 
 
 const ProductList = () => {
+    const [openImport, setOpenImport] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
 
     const actionColumns = [
         {
@@ -44,7 +49,7 @@ const ProductList = () => {
         filterable: false,
         renderCell: (params) => (
         <div className='cell-table-action'>
-             <button className='view-btn' onClick={() => handleView(params.row)}>View</button>
+            <button className='view-btn' onClick={() => handleView(params.row)}>View</button>
             <button className='delete-btn' onClick={() => handleImport(params.row)}>Import</button>
         </div>
         ),
@@ -69,15 +74,49 @@ const ProductList = () => {
         nav(`${row.id}`);
     }
 
-    // const handleImport = (row) => {
-    //     setDeleteId(row.id);
-    //     setIsModal(true);
-    // };
+    const handleImport = (product) => {
+        setSelectedProduct(product);
+        setOpenImport(true);
+    }
+    const handleCloseImport = () => {
+        setOpenImport(false);
+        setSelectedProduct(null);
+    };
+
+
+    const handleImportSubmit = useCallback(async (data) => {
+        try {
+
+            console.log(data)
+            await importService.postImport(data);
+
+            toast.success("Nhập kho thành công");
+            handleCloseImport();   // 🔥 đóng modal chuẩn
+            fetchData();
+
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Nhập kho thất bại");
+        }
+    }, [selectedProduct]);
+
+
     
     return (
-        <div>
-            <ListPage title={"List Products"} columns={productColumns.concat(actionColumns)} rows={products}/>
-        </div>
+        <>
+            <div>
+                <ListPage title={"List Products"} columns={productColumns.concat(actionColumns)} rows={products}/>
+            </div>
+
+            {selectedProduct && (
+                <ImportModal
+                    open={openImport}
+                    onClose={() => setOpenImport(false)}
+                    product={selectedProduct}
+                    onSubmit={handleImportSubmit}
+                />
+            )}
+
+        </>
     )
 }
 

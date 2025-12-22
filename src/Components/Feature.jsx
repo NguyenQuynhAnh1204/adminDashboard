@@ -13,7 +13,6 @@ const Feature = () => {
         try {
             const data = await orderService.getFeature();
             setFeature(data);
-            console.log(data);
         }
         catch (error) {
             console.error(error);

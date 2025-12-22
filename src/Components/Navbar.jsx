@@ -16,13 +16,14 @@ const Navbar = () => {
     const handleTheme = () => {
         setMode(prev => prev === 'light' ? 'dark' : 'light');
     }
+    
     return (
         <div className="navbar">
             <div className="wrapper">
-                <div className="search">
+                {/* <div className="search">
                     <input type="text"  placeholder="Search..."/>
                     <SearchIcon/>
-                </div>
+                </div> */}
 
                 <div className="items">
                     <div className='item'>

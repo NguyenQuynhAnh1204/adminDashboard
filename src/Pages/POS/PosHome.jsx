@@ -18,7 +18,6 @@ const PosHome = () => {
     const handleSelect = (opt) => {
         setOption(opt);
     }
-    
 
     return (
         <div className='pos-home'>
@@ -34,7 +33,7 @@ const PosHome = () => {
                 </div>
 
                 
-                <AddIcon className='head-btn cursor' />
+                {/* <AddIcon className='head-btn cursor'/> */}
             </div>
             
             <PosOrder/>

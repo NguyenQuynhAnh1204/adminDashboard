@@ -13,22 +13,24 @@
         padding: 20px;
         width: 100%;
         @include align-ct;
-        justify-content: space-between;
+        justify-content: end;
 
-        .search {
-            @include align-ct;
-            border: $bd-05;
-            padding: 3px 6px;
-            input {
-                border: none;
-                outline: none;
-                background: transparent;
-
-                &::placeholder {
-                    font-size: 12px
-                }
-            }
-        }
+        // .search {
+        //     @include align-ct;
+        //     width: 200px;
+        //     border: $bd-05;
+        //     padding: 3px 6px;
+        //     input {
+        //         width: 100%;
+        //         border: none;
+        //         outline: none;
+        //         background: transparent;
+        //         color: #888;
+        //         &::placeholder {
+        //             font-size: 12px
+        //         }
+        //     }
+        // }
 
         .items {
             @include align-ct;

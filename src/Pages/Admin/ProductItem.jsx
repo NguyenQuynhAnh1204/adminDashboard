@@ -186,7 +186,8 @@ const ProductItem = ({type}) => {
         setIsUpdate(true);
         setIsStock(false);
     }
-    
+    const isLowStock = Number(stockProduct.quantity) <= Number(stockProduct.stock);
+
     return (
         <div className="pro-item-page">
             <Sidebar/>
@@ -334,54 +335,6 @@ const ProductItem = ({type}) => {
                                 </div>
                             </form>
                         </div>
-
-                            {type === 'info' && (
-                                <div className="right-bottom shadow">
-                                    <h2>Manage Stock</h2>
-                                
-                                    <form className="product-form">
-
-                                        <div className="form-group">
-                                            <div className="form-item">
-                                                <label htmlFor="quantity">Quantity</label>
-                                                <input
-                                                    type="number"
-                                                    id="quantity"
-                                                    name="quantity"
-                                                    value={stockProduct.quantity}
-                                                    disabled
-                                                />
-                                            </div>
-
-                                            <div className="form-item">
-                                                <label htmlFor="stock">Stock</label>
-                                                <input
-                                                    type="number"
-                                                    id="stock"
-                                                    name="stock"
-                                                    value={stockProduct.stock}
-                                                    onChange={handleChangeStock}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        
-                                        <div className="form-group">
-                                            <div className="form-item">
-                                                <label htmlFor="status">Status</label>
-                                                <input type="text" 
-                                                    value={stockProduct.quantity > stockProduct.stock ? "In Stock": "Out of stock"} 
-                                                    disabled
-                                                />
-                                            </div>
-
-                                            <div className="form-item">
-                                                <button className="item-btn" onClick={handleUpdateStock} disabled={!isStock}>Update</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            )}
                         
                     </div>
                 </div>

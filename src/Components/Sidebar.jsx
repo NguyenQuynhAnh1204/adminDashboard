@@ -55,12 +55,12 @@ const Sidebar = () => {
                             <span>Orders</span>
                         </li>
                     </NavLink>
-                    <NavLink to={'/admin/import'}>
+                    {/* <NavLink to={'/admin/import'}>
                         <li>
                             <BrowserUpdatedIcon className='icon'/>
                             <span>Import</span>
                         </li>
-                    </NavLink>
+                    </NavLink> */}
 
                     <p className="sidebar-title">Useful</p>
                     <NavLink to={'/admin/stats'}>

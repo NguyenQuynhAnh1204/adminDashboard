@@ -58,29 +58,3 @@ export const getAppTheme = (mode) =>
 
 
 
-// MuiDataGrid: {
-//         styleOverrides: {
-//           root: {
-//             backgroundColor: mode === "light" ? "#f8fafc" : "#282626ff",
-//             color: mode === "light" ? "#555" : "#ccc",
-//             border: "none",
-//           },
-
-//           columnHeaders: {
-//             backgroundColor: mode === "light" ? "#eaeff5" : "#24282dff",
-//             color: mode === "light" ? "#1e293b" : "#fff",
-//             fontWeight: "bold",
-//           },
-
-//           cell: {
-//             borderBottom:
-//               mode === "light"
-//                 ? "1px solid #e2e8f0"
-//                 : "1px solid #3a3f45",
-//           },
-
-//           footerContainer: {
-//             backgroundColor: mode === "light" ? "#f1f5f9" : "#24282dff",
-//           },
-//         },
-//       },
