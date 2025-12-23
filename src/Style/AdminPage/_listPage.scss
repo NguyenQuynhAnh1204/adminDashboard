@@ -29,6 +29,25 @@
                 }
             }
         }
+        .list-search {
+            margin-bottom: 16px;
+            display: flex;
+            padding: 20px 20px 0;
+            gap: 20px;
+        }
+
+        .search-input {
+            padding: 8px 12px;
+            width: 260px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #1976d2;
+        }
+
         
     }
 }

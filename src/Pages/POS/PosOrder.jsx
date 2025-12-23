@@ -46,7 +46,7 @@ const PosOrder = (props) => {
 
     const fetchOrder = async (status) => {
         try {
-            const res = await axios.post('/order', {
+             await axios.post('/order', {
                 order: {
                     
                     productItem: products,
@@ -56,7 +56,6 @@ const PosOrder = (props) => {
                     status: status
                 }
             })
-            console.log(res)
         }
         catch (e) {
             console.log(e)

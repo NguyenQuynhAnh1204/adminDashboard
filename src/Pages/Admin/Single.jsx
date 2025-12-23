@@ -100,24 +100,6 @@ const Single = () => {
                 <div className='single-content'>
                     {renderContent()}
                 </div>
-                
-                {/* <Profile/> */}
-
-                {/* <div className="single-filter">
-                    <button className={`${btnSelect === 'transaction' && 'btn-active'}`} onClick={() => handleSelect('transaction')}>Transaction</button>
-                    <button className={`${btnSelect === 'schedule' && 'btn-active'}`} onClick={() => handleSelect('schedule')}>Schedule</button>
-                </div> */}
-
-
-                {/* <div className="single-bottom shadow">
-                    {btnSelect === 'transaction' && (
-                        <>
-                            <h1 className="single-title">Last Transaction</h1>
-                            <TableList titleCell={tableTitle} rows={[]}/>
-                        </>
-                    )}
-                    {btnSelect === 'schedule' && <Schedule/>}
-                </div> */}
             </div>
 
            

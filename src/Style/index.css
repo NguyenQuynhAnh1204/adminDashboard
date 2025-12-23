@@ -399,6 +399,22 @@ a {
   background-color: #18e818;
   color: white;
 }
+.list-page .list-container .list-search {
+  margin-bottom: 16px;
+  display: flex;
+  padding: 20px 20px 0;
+  gap: 20px;
+}
+.list-page .list-container .search-input {
+  padding: 8px 12px;
+  width: 260px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.list-page .list-container .search-input:focus {
+  border-color: #1976d2;
+}
 
 .single-page {
   display: flex;
